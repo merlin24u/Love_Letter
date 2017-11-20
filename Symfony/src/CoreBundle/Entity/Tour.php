@@ -33,5 +33,38 @@ class Tour
     private $nbmanche;
 
 
-}
 
+    /**
+     * Get idtour
+     *
+     * @return integer
+     */
+    public function getIdtour()
+    {
+        return $this->idtour;
+    }
+
+    /**
+     * Set nbmanche
+     *
+     * @param \CoreBundle\Entity\Manche $nbmanche
+     *
+     * @return Tour
+     */
+    public function setNbmanche(\CoreBundle\Entity\Manche $nbmanche = null)
+    {
+        $this->nbmanche = $nbmanche;
+
+        return $this;
+    }
+
+    /**
+     * Get nbmanche
+     *
+     * @return \CoreBundle\Entity\Manche
+     */
+    public function getNbmanche()
+    {
+        return $this->nbmanche;
+    }
+}

@@ -45,5 +45,76 @@ class Defausse
     private $nbmanche;
 
 
-}
 
+    /**
+     * Set iddefausse
+     *
+     * @param integer $iddefausse
+     *
+     * @return Defausse
+     */
+    public function setIddefausse($iddefausse)
+    {
+        $this->iddefausse = $iddefausse;
+
+        return $this;
+    }
+
+    /**
+     * Get iddefausse
+     *
+     * @return integer
+     */
+    public function getIddefausse()
+    {
+        return $this->iddefausse;
+    }
+
+    /**
+     * Set login
+     *
+     * @param \CoreBundle\Entity\Joueur $login
+     *
+     * @return Defausse
+     */
+    public function setLogin(\CoreBundle\Entity\Joueur $login)
+    {
+        $this->login = $login;
+
+        return $this;
+    }
+
+    /**
+     * Get login
+     *
+     * @return \CoreBundle\Entity\Joueur
+     */
+    public function getLogin()
+    {
+        return $this->login;
+    }
+
+    /**
+     * Set nbmanche
+     *
+     * @param \CoreBundle\Entity\Manche $nbmanche
+     *
+     * @return Defausse
+     */
+    public function setNbmanche(\CoreBundle\Entity\Manche $nbmanche = null)
+    {
+        $this->nbmanche = $nbmanche;
+
+        return $this;
+    }
+
+    /**
+     * Get nbmanche
+     *
+     * @return \CoreBundle\Entity\Manche
+     */
+    public function getNbmanche()
+    {
+        return $this->nbmanche;
+    }
+}

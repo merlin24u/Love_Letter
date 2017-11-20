@@ -39,5 +39,62 @@ class Partie
     private $gagnant;
 
 
-}
 
+    /**
+     * Get idpartie
+     *
+     * @return integer
+     */
+    public function getIdpartie()
+    {
+        return $this->idpartie;
+    }
+
+    /**
+     * Set nbjoueurs
+     *
+     * @param integer $nbjoueurs
+     *
+     * @return Partie
+     */
+    public function setNbjoueurs($nbjoueurs)
+    {
+        $this->nbjoueurs = $nbjoueurs;
+
+        return $this;
+    }
+
+    /**
+     * Get nbjoueurs
+     *
+     * @return integer
+     */
+    public function getNbjoueurs()
+    {
+        return $this->nbjoueurs;
+    }
+
+    /**
+     * Set gagnant
+     *
+     * @param \CoreBundle\Entity\Joueur $gagnant
+     *
+     * @return Partie
+     */
+    public function setGagnant(\CoreBundle\Entity\Joueur $gagnant = null)
+    {
+        $this->gagnant = $gagnant;
+
+        return $this;
+    }
+
+    /**
+     * Get gagnant
+     *
+     * @return \CoreBundle\Entity\Joueur
+     */
+    public function getGagnant()
+    {
+        return $this->gagnant;
+    }
+}

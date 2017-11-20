@@ -67,5 +67,148 @@ class Main
     private $idtour;
 
 
-}
 
+    /**
+     * Set idmain
+     *
+     * @param integer $idmain
+     *
+     * @return Main
+     */
+    public function setIdmain($idmain)
+    {
+        $this->idmain = $idmain;
+
+        return $this;
+    }
+
+    /**
+     * Get idmain
+     *
+     * @return integer
+     */
+    public function getIdmain()
+    {
+        return $this->idmain;
+    }
+
+    /**
+     * Set nbmanche
+     *
+     * @param integer $nbmanche
+     *
+     * @return Main
+     */
+    public function setNbmanche($nbmanche)
+    {
+        $this->nbmanche = $nbmanche;
+
+        return $this;
+    }
+
+    /**
+     * Get nbmanche
+     *
+     * @return integer
+     */
+    public function getNbmanche()
+    {
+        return $this->nbmanche;
+    }
+
+    /**
+     * Set idpartie
+     *
+     * @param integer $idpartie
+     *
+     * @return Main
+     */
+    public function setIdpartie($idpartie)
+    {
+        $this->idpartie = $idpartie;
+
+        return $this;
+    }
+
+    /**
+     * Get idpartie
+     *
+     * @return integer
+     */
+    public function getIdpartie()
+    {
+        return $this->idpartie;
+    }
+
+    /**
+     * Set cartejouee
+     *
+     * @param string $cartejouee
+     *
+     * @return Main
+     */
+    public function setCartejouee($cartejouee)
+    {
+        $this->cartejouee = $cartejouee;
+
+        return $this;
+    }
+
+    /**
+     * Get cartejouee
+     *
+     * @return string
+     */
+    public function getCartejouee()
+    {
+        return $this->cartejouee;
+    }
+
+    /**
+     * Set login
+     *
+     * @param \CoreBundle\Entity\Joueur $login
+     *
+     * @return Main
+     */
+    public function setLogin(\CoreBundle\Entity\Joueur $login)
+    {
+        $this->login = $login;
+
+        return $this;
+    }
+
+    /**
+     * Get login
+     *
+     * @return \CoreBundle\Entity\Joueur
+     */
+    public function getLogin()
+    {
+        return $this->login;
+    }
+
+    /**
+     * Set idtour
+     *
+     * @param \CoreBundle\Entity\Tour $idtour
+     *
+     * @return Main
+     */
+    public function setIdtour(\CoreBundle\Entity\Tour $idtour)
+    {
+        $this->idtour = $idtour;
+
+        return $this;
+    }
+
+    /**
+     * Get idtour
+     *
+     * @return \CoreBundle\Entity\Tour
+     */
+    public function getIdtour()
+    {
+        return $this->idtour;
+    }
+}

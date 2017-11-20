@@ -34,5 +34,52 @@ class Manche
     private $idpartie;
 
 
-}
 
+    /**
+     * Set nbmanche
+     *
+     * @param integer $nbmanche
+     *
+     * @return Manche
+     */
+    public function setNbmanche($nbmanche)
+    {
+        $this->nbmanche = $nbmanche;
+
+        return $this;
+    }
+
+    /**
+     * Get nbmanche
+     *
+     * @return integer
+     */
+    public function getNbmanche()
+    {
+        return $this->nbmanche;
+    }
+
+    /**
+     * Set idpartie
+     *
+     * @param \CoreBundle\Entity\Partie $idpartie
+     *
+     * @return Manche
+     */
+    public function setIdpartie(\CoreBundle\Entity\Partie $idpartie)
+    {
+        $this->idpartie = $idpartie;
+
+        return $this;
+    }
+
+    /**
+     * Get idpartie
+     *
+     * @return \CoreBundle\Entity\Partie
+     */
+    public function getIdpartie()
+    {
+        return $this->idpartie;
+    }
+}
