@@ -122,7 +122,7 @@ ALTER TABLE `Carte`
 -- Index pour la table `Defausse`
 --
 ALTER TABLE `Defausse`
-  ADD PRIMARY KEY (`idDefausse`,`login`,`nbManche`,`idPartie`),
+  ADD PRIMARY KEY (`idDefausse`,`login`),
   ADD KEY `FKDefausse1` (`login`),
   ADD KEY `FKDefausse2` (`nbManche`,`idPartie`);
 
@@ -136,7 +136,7 @@ ALTER TABLE `Joueur`
 -- Index pour la table `Main`
 --
 ALTER TABLE `Main`
-  ADD PRIMARY KEY (`idMain`,`idTour`,`nbManche`,`idPartie`,`login`),
+  ADD PRIMARY KEY (`idMain`,`idTour`,`login`),
   ADD KEY `FKMain1` (`login`),
   ADD KEY `FKMain2` (`idTour`,`nbManche`,`idPartie`);
 
@@ -158,7 +158,7 @@ ALTER TABLE `Partie`
 -- Index pour la table `Tour`
 --
 ALTER TABLE `Tour`
-  ADD PRIMARY KEY (`idTour`,`nbManche`,`idPartie`),
+  ADD PRIMARY KEY (`idTour`),
   ADD KEY `FKTour` (`nbManche`,`idPartie`);
 
 --
@@ -177,7 +177,7 @@ ALTER TABLE `Defausse`
 --
 ALTER TABLE `Main`
   ADD CONSTRAINT `FKMain1` FOREIGN KEY (`login`) REFERENCES `Joueur` (`login`),
-  ADD CONSTRAINT `FKMain2` FOREIGN KEY (`idTour`,`nbManche`,`idPartie`) REFERENCES `Tour` (`idTour`, `nbManche`, `idPartie`);
+  ADD CONSTRAINT `FKMain2` FOREIGN KEY (`idTour`) REFERENCES `Tour` (`idTour`);
 
 --
 -- Contraintes pour la table `Manche`
