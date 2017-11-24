@@ -1,3 +1,7 @@
 connexion_home:
-    path:    /hello-world
+    path:    /home
     defaults: { _controller: CoreBundle:Connexion:index }
+   
+inscription:
+    path:    /inscription
+    defaults: { _controller: CoreBundle:Inscription:index }

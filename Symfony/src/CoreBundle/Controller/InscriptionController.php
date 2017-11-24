@@ -3,16 +3,16 @@
 namespace CoreBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
-use CoreBundle\Form\JoueurType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use CoreBundle\Form\JoueurType;
 use CoreBundle\Entity\Joueur;
 
-class ConnexionController extends Controller {
+class InscriptionController extends Controller {
 
     public function indexAction(Request $request) {
 
         $joueur = new Joueur();
-        
+
         $form = $this->createForm(JoueurType::class, $joueur);
 
         if ($request->isMethod('POST')) {
@@ -20,20 +20,18 @@ class ConnexionController extends Controller {
             $form->handleRequest($request);
 
             if ($form->isValid()) {
-                $repository = $this->getDoctrine()->getManager()->getRepository('CoreBundle:Joueur');
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($joueur);
+                $em->flush();
 
-                $joueurRet = $repository->find($joueur->getLogin());
-
-                if ($joueurRet != null) {
-                    $request->getSession()->getFlashBag()->add('notice', 'Connecté');
-                }
+                $request->getSession()->getFlashBag()->add('notice', 'Inscrit');
 
                 return $this->redirectToRoute('connexion_home');
             }
         }
 
 
-        return $this->render('CoreBundle:Connexion:index.html.twig', array(
+        return $this->render('CoreBundle:Inscription:inscription.html.twig', array(
                     'form' => $form->createView(),
         ));
     }

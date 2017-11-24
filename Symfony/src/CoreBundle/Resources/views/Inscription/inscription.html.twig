@@ -9,12 +9,7 @@
         <title>Love Letter</title>
     </head>
     <body>
-        <h1>Bienvenue sur Love Letter !</h1>
-        <div>
-            {% for message in app.session.flashbag.get('notice') %}
-                <p>Message flash : {{ message }}</p>
-            {% endfor %}
-        </div>
+        <h1>Inscription</h1>
         <div class="well">
             {{ form(form) }}
         </div>

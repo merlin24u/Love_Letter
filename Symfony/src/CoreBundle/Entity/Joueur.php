@@ -10,8 +10,8 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="Joueur")
  * @ORM\Entity
  */
-class Joueur
-{
+class Joueur {
+
     /**
      * @var string
      *
@@ -35,8 +35,17 @@ class Joueur
      */
     private $score;
 
-    public function __construct($l) {
-        $this->login=$l;
+    public function __construct() {
+        $this->score = -1;
+    }
+
+    /**
+     * Set login
+     * 
+     * @param string $lg
+     */
+    public function setLogin($lg) {
+        $this->login = $lg;
     }
 
     /**
@@ -44,8 +53,7 @@ class Joueur
      *
      * @return string
      */
-    public function getLogin()
-    {
+    public function getLogin() {
         return $this->login;
     }
 
@@ -56,8 +64,7 @@ class Joueur
      *
      * @return Joueur
      */
-    public function setMdp($mdp)
-    {
+    public function setMdp($mdp) {
         $this->mdp = $mdp;
 
         return $this;
@@ -68,8 +75,7 @@ class Joueur
      *
      * @return string
      */
-    public function getMdp()
-    {
+    public function getMdp() {
         return $this->mdp;
     }
 
@@ -80,8 +86,7 @@ class Joueur
      *
      * @return Joueur
      */
-    public function setScore($score)
-    {
+    public function setScore($score) {
         $this->score = $score;
 
         return $this;
@@ -92,8 +97,8 @@ class Joueur
      *
      * @return integer
      */
-    public function getScore()
-    {
+    public function getScore() {
         return $this->score;
     }
+
 }
