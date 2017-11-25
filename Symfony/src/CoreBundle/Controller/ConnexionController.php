@@ -21,32 +21,6 @@ class ConnexionController extends Controller {
                     'last_username' => $authenticationUtils->getLastUsername(),
                     'error' => $authenticationUtils->getLastAuthenticationError(),
         ));
-
-        /* $joueur = new Joueur();
-
-          $form = $this->createForm(JoueurType::class, $joueur);
-
-          if ($request->isMethod('POST')) {
-
-          $form->handleRequest($request);
-
-          if ($form->isValid()) {
-          $repository = $this->getDoctrine()->getManager()->getRepository('CoreBundle:Joueur');
-
-          $joueurRet = $repository->find($joueur->getLogin());
-
-          if ($joueurRet != null) {
-          $request->getSession()->getFlashBag()->add('notice', 'Connecté');
-          }
-
-          return $this->redirectToRoute('connexion_home');
-          }
-          }
-
-
-          return $this->render('CoreBundle:Connexion:connexion.html.twig', array(
-          'form' => $form->createView(),
-          )); */
     }
 
     public function signAction(Request $request) {

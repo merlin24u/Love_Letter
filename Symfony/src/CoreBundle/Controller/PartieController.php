@@ -7,8 +7,8 @@ use CoreBundle\Entity\Partie;
 
 class PartieController extends Controller {
 
-    public function addAction() {
-        
+    public function indexAction() {
+        return $this->render('CoreBundle:Partie:partie.html.twig');
     }
 
 }

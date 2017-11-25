@@ -37,18 +37,14 @@ class Joueur implements UserInterface {
     private $score;
 
     /**
-     * @ORM\Column(name="salt", type="string", length=255)
+     * @ORM\Column(name="salt", type="string", length=255, nullable=true)
      */
     private $salt;
 
     /**
-     * @ORM\Column(name="roles", type="array")
+     * @ORM\Column(name="roles", type="array", nullable = true)
      */
     private $roles = array();
-
-    public function __construct() {
-        $this->score = -1;
-    }
 
     /**
      * Set login
@@ -117,19 +113,45 @@ class Joueur implements UserInterface {
     }
 
     public function getPassword() {
-        
+        return $this->getMdp();
     }
 
     public function getRoles() {
-        
+        return $this->roles;
+    }
+
+    /**
+     * Set roles
+     *
+     * @param array $roles
+     *
+     * @return Joueur
+     */
+    public function setRoles($roles) {
+        $this->roles = $roles;
+
+        return $this;
     }
 
     public function getSalt() {
-        
+        return $this->salt;
+    }
+
+    /**
+     * Set salt
+     *
+     * @param string $salt
+     *
+     * @return Joueur
+     */
+    public function setSalt($salt) {
+        $this->salt = $salt;
+
+        return $this;
     }
 
     public function getUsername() {
-        
+        return $this->login;
     }
 
 }
