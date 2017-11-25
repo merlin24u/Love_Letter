@@ -3,6 +3,7 @@
 namespace CoreBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * Joueur
@@ -10,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="Joueur")
  * @ORM\Entity
  */
-class Joueur {
+class Joueur implements UserInterface {
 
     /**
      * @var string
@@ -24,7 +25,7 @@ class Joueur {
     /**
      * @var string
      *
-     * @ORM\Column(name="mdp", type="string", length=100, nullable=true)
+     * @ORM\Column(name="mdp", type="string", length=255, nullable=true)
      */
     private $mdp;
 
@@ -34,6 +35,16 @@ class Joueur {
      * @ORM\Column(name="score", type="integer", nullable=true)
      */
     private $score;
+
+    /**
+     * @ORM\Column(name="salt", type="string", length=255)
+     */
+    private $salt;
+
+    /**
+     * @ORM\Column(name="roles", type="array")
+     */
+    private $roles = array();
 
     public function __construct() {
         $this->score = -1;
@@ -99,6 +110,26 @@ class Joueur {
      */
     public function getScore() {
         return $this->score;
+    }
+
+    public function eraseCredentials() {
+        
+    }
+
+    public function getPassword() {
+        
+    }
+
+    public function getRoles() {
+        
+    }
+
+    public function getSalt() {
+        
+    }
+
+    public function getUsername() {
+        
     }
 
 }

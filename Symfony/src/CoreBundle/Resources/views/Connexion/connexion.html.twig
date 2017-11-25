@@ -10,13 +10,18 @@
     </head>
     <body>
         <h1>Bienvenue sur Love Letter !</h1>
-        <div>
-            {% for message in app.session.flashbag.get('notice') %}
-                <p>Message flash : {{ message }}</p>
-            {% endfor %}
-        </div>
-        <div class="well">
-            {{ form(form) }}
-        </div>
+        {% if error %}
+            <div class="alert alert-danger">{{ error.message }}</div>
+        {% endif %}
+
+        <form action="{{ path('login_check') }}" method="post">
+            <label for="username">Login :</label>
+            <input type="text" id="username" name="_username" value="{{ last_username }}" />
+
+            <label for="password">Mot de passe :</label>
+            <input type="password" id="password" name="_password" />
+            <br />
+            <input type="submit" value="Connexion" />
+        </form>
     </body>
 </html>

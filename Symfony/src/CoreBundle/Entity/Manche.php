@@ -7,56 +7,51 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Manche
  *
- * @ORM\Table(name="Manche", indexes={@ORM\Index(name="FKManche", columns={"idPartie"})})
+ * @ORM\Table(name="Manche")
  * @ORM\Entity
  */
-class Manche
-{
+class Manche {
+
     /**
      * @var integer
      *
-     * @ORM\Column(name="nbManche", type="integer", nullable=false)
+     * @ORM\Column(name="idManche", type="integer", nullable=false)
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="NONE")
+     * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    private $nbmanche;
+    private $idmanche;
 
     /**
      * @var \Partie
      *
-     * @ORM\Id
      * @ORM\GeneratedValue(strategy="NONE")
-     * @ORM\OneToOne(targetEntity="Partie")
+     * @ORM\ManyToOne(targetEntity="Partie", cascade={"persist"})
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="idPartie", referencedColumnName="idPartie")
      * })
      */
     private $idpartie;
 
-
-
     /**
-     * Set nbmanche
+     * Set idmanche
      *
-     * @param integer $nbmanche
+     * @param integer $idmanche
      *
      * @return Manche
      */
-    public function setNbmanche($nbmanche)
-    {
-        $this->nbmanche = $nbmanche;
+    public function setIdmanche($idmanche) {
+        $this->idmanche = $idmanche;
 
         return $this;
     }
 
     /**
-     * Get nbmanche
+     * Get idmanche
      *
      * @return integer
      */
-    public function getNbmanche()
-    {
-        return $this->nbmanche;
+    public function getIdmanche() {
+        return $this->idmanche;
     }
 
     /**
@@ -66,8 +61,7 @@ class Manche
      *
      * @return Manche
      */
-    public function setIdpartie(\CoreBundle\Entity\Partie $idpartie)
-    {
+    public function setIdpartie(\CoreBundle\Entity\Partie $idpartie) {
         $this->idpartie = $idpartie;
 
         return $this;
@@ -78,8 +72,8 @@ class Manche
      *
      * @return \CoreBundle\Entity\Partie
      */
-    public function getIdpartie()
-    {
+    public function getIdpartie() {
         return $this->idpartie;
     }
+
 }

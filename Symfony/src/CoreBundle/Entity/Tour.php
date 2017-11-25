@@ -7,11 +7,11 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Tour
  *
- * @ORM\Table(name="Tour", indexes={@ORM\Index(name="FKTour", columns={"nbManche", "idPartie"})})
+ * @ORM\Table(name="Tour")
  * @ORM\Entity
  */
-class Tour
-{
+class Tour {
+
     /**
      * @var integer
      *
@@ -24,47 +24,64 @@ class Tour
     /**
      * @var \Manche
      *
-     * @ORM\ManyToOne(targetEntity="Manche")
+     * @ORM\ManyToOne(targetEntity="Manche", cascade={"persist"})
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="nbManche", referencedColumnName="nbManche"),
-     *   @ORM\JoinColumn(name="idPartie", referencedColumnName="idPartie")
+     *   @ORM\JoinColumn(name="idManche", referencedColumnName="idManche")
      * })
      */
-    private $nbmanche;
-
-
+    private $idmanche;
 
     /**
      * Get idtour
      *
      * @return integer
      */
-    public function getIdtour()
-    {
+    public function getIdtour() {
         return $this->idtour;
     }
 
     /**
-     * Set nbmanche
+     * Set idmanche
      *
-     * @param \CoreBundle\Entity\Manche $nbmanche
+     * @param \CoreBundle\Entity\Manche $idmanche
      *
      * @return Tour
      */
-    public function setNbmanche(\CoreBundle\Entity\Manche $nbmanche = null)
-    {
-        $this->nbmanche = $nbmanche;
+    public function setIdmanche(\CoreBundle\Entity\Manche $idmanche = null) {
+        $this->idmanche = $idmanche;
 
         return $this;
     }
 
     /**
-     * Get nbmanche
+     * Get idmanche
      *
      * @return \CoreBundle\Entity\Manche
      */
-    public function getNbmanche()
-    {
-        return $this->nbmanche;
+    public function getNbmanche() {
+        return $this->idmanche;
     }
+
+    /**
+     * Set idpartie
+     *
+     * @param \CoreBundle\Entity\Partie $idpartie
+     *
+     * @return Tour
+     */
+    public function setIdpartie(\CoreBundle\Entity\Partie $idpartie = null) {
+        $this->idpartie = $idpartie;
+
+        return $this;
+    }
+
+    /**
+     * Get idpartie
+     *
+     * @return \CoreBundle\Entity\Partie
+     */
+    public function getIdpartie() {
+        return $this->idpartie;
+    }
+
 }

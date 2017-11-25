@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Partie
  *
- * @ORM\Table(name="Partie", indexes={@ORM\Index(name="FKPartie", columns={"gagnant"})})
+ * @ORM\Table(name="Partie")
  * @ORM\Entity
  */
 class Partie
@@ -31,7 +31,7 @@ class Partie
     /**
      * @var \Joueur
      *
-     * @ORM\ManyToOne(targetEntity="Joueur")
+     * @ORM\ManyToOne(targetEntity="Joueur", cascade={"persist"})
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="gagnant", referencedColumnName="login")
      * })

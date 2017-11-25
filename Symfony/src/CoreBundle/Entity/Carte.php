@@ -10,8 +10,8 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="Carte")
  * @ORM\Entity
  */
-class Carte
-{
+class Carte {
+
     /**
      * @var string
      *
@@ -42,15 +42,12 @@ class Carte
      */
     private $img;
 
-
-
     /**
      * Get nom
      *
      * @return string
      */
-    public function getNom()
-    {
+    public function getNom() {
         return $this->nom;
     }
 
@@ -61,8 +58,7 @@ class Carte
      *
      * @return Carte
      */
-    public function setValeur($valeur)
-    {
+    public function setValeur($valeur) {
         $this->valeur = $valeur;
 
         return $this;
@@ -73,8 +69,7 @@ class Carte
      *
      * @return integer
      */
-    public function getValeur()
-    {
+    public function getValeur() {
         return $this->valeur;
     }
 
@@ -85,8 +80,7 @@ class Carte
      *
      * @return Carte
      */
-    public function setEffet($effet)
-    {
+    public function setEffet($effet) {
         $this->effet = $effet;
 
         return $this;
@@ -97,8 +91,7 @@ class Carte
      *
      * @return string
      */
-    public function getEffet()
-    {
+    public function getEffet() {
         return $this->effet;
     }
 
@@ -109,8 +102,7 @@ class Carte
      *
      * @return Carte
      */
-    public function setImg($img)
-    {
+    public function setImg($img) {
         $this->img = $img;
 
         return $this;
@@ -121,8 +113,8 @@ class Carte
      *
      * @return string
      */
-    public function getImg()
-    {
+    public function getImg() {
         return $this->img;
     }
+
 }
