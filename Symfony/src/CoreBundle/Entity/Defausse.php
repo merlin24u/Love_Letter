@@ -24,13 +24,12 @@ class Defausse {
     /**
      * @var \Joueur
      *
-     * @ORM\GeneratedValue(strategy="NONE")
      * @ORM\OneToOne(targetEntity="Joueur", cascade={"persist"})
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="login", referencedColumnName="login")
+     *   @ORM\JoinColumn(name="idLogin", referencedColumnName="id")
      * })
      */
-    private $login;
+    private $idlogin;
 
     /**
      * @var \Manche
@@ -65,25 +64,25 @@ class Defausse {
     }
 
     /**
-     * Set login
+     * Set idlogin
      *
      * @param \CoreBundle\Entity\Joueur $login
      *
      * @return Defausse
      */
-    public function setLogin(\CoreBundle\Entity\Joueur $login) {
-        $this->login = $login;
+    public function setIdlogin(\CoreBundle\Entity\Joueur $login) {
+        $this->idlogin = $login;
 
         return $this;
     }
 
     /**
-     * Get login
+     * Get idlogin
      *
      * @return \CoreBundle\Entity\Joueur
      */
-    public function getLogin() {
-        return $this->login;
+    public function getIdlogin() {
+        return $this->idlogin;
     }
 
     /**

@@ -33,7 +33,7 @@ class Partie
      *
      * @ORM\ManyToOne(targetEntity="Joueur", cascade={"persist"})
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="gagnant", referencedColumnName="login")
+     *   @ORM\JoinColumn(name="gagnant", referencedColumnName="id")
      * })
      */
     private $gagnant;
