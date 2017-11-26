@@ -20,4 +20,9 @@ class Joueur extends BaseUser {
      */
     protected $id;
 
+    public function __construct() {
+        parent::__construct();
+        $this->roles = (array('ROLE_USER'));
+    }
+
 }

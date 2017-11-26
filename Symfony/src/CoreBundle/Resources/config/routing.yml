@@ -1,15 +1,5 @@
 accueil:
     path:    /
-    defaults: { _controller: CoreBundle:Connexion:log }
-
-connexion_home:
-    path:    /home
-    defaults: { _controller: CoreBundle:Connexion:log }
-   
-inscription:
-    path:    /inscription
-    defaults: { _controller: CoreBundle:Connexion:sign }
-    
-partie:
-    path:    /partie
     defaults: { _controller: CoreBundle:Partie:index }
+
+
