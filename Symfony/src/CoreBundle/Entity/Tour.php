@@ -58,30 +58,8 @@ class Tour {
      *
      * @return \CoreBundle\Entity\Manche
      */
-    public function getNbmanche() {
+    public function getIdmanche() {
         return $this->idmanche;
-    }
-
-    /**
-     * Set idpartie
-     *
-     * @param \CoreBundle\Entity\Partie $idpartie
-     *
-     * @return Tour
-     */
-    public function setIdpartie(\CoreBundle\Entity\Partie $idpartie = null) {
-        $this->idpartie = $idpartie;
-
-        return $this;
-    }
-
-    /**
-     * Get idpartie
-     *
-     * @return \CoreBundle\Entity\Partie
-     */
-    public function getIdpartie() {
-        return $this->idpartie;
     }
 
 }

@@ -22,17 +22,6 @@ class Main {
     private $idmain;
 
     /**
-     * @var \Carte
-     *
-     * @ORM\GeneratedValue(strategy="NONE")
-     * @ORM\OneToOne(targetEntity="Carte", cascade={"persist"})
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="carteJouee", referencedColumnName="nom")
-     * })
-     */
-    private $cartejouee;
-
-    /**
      * @var \Joueur
      *
      * @ORM\GeneratedValue(strategy="NONE")

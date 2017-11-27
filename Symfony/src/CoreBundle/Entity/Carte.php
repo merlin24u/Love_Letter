@@ -13,10 +13,18 @@ use Doctrine\ORM\Mapping as ORM;
 class Carte {
 
     /**
+     * @var integer
+     * 
+     * @ORM\Column(name="idCarte", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY") 
+     */
+    private $idcarte;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="nom", type="string", length=20, nullable=false)
-     * @ORM\Id
      * @ORM\GeneratedValue(strategy="NONE")
      */
     private $nom;
@@ -41,6 +49,10 @@ class Carte {
      * @ORM\Column(name="img", type="string", length=50, nullable=true)
      */
     private $img;
+
+    public function getIdcarte() {
+        return $this->idcarte;
+    }
 
     /**
      * Get nom

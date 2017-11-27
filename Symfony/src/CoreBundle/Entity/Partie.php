@@ -10,8 +10,8 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="Partie")
  * @ORM\Entity
  */
-class Partie
-{
+class Partie {
+
     /**
      * @var integer
      *
@@ -38,15 +38,29 @@ class Partie
      */
     private $gagnant;
 
+    /**
+     * @var boolean
+     * 
+     * @ORM\Column(name="token", type="boolean", nullable=true) 
+     */
+    private $ouverte;
 
+    public function getOuverte() {
+        return $this->ouverte;
+    }
+
+    public function setOuverte($o) {
+        $this->ouverte = $o;
+
+        return $this;
+    }
 
     /**
      * Get idpartie
      *
      * @return integer
      */
-    public function getIdpartie()
-    {
+    public function getIdpartie() {
         return $this->idpartie;
     }
 
@@ -57,8 +71,7 @@ class Partie
      *
      * @return Partie
      */
-    public function setNbjoueurs($nbjoueurs)
-    {
+    public function setNbjoueurs($nbjoueurs) {
         $this->nbjoueurs = $nbjoueurs;
 
         return $this;
@@ -69,8 +82,7 @@ class Partie
      *
      * @return integer
      */
-    public function getNbjoueurs()
-    {
+    public function getNbjoueurs() {
         return $this->nbjoueurs;
     }
 
@@ -81,8 +93,7 @@ class Partie
      *
      * @return Partie
      */
-    public function setGagnant(\CoreBundle\Entity\Joueur $gagnant = null)
-    {
+    public function setGagnant(\CoreBundle\Entity\Joueur $gagnant = null) {
         $this->gagnant = $gagnant;
 
         return $this;
@@ -93,8 +104,8 @@ class Partie
      *
      * @return \CoreBundle\Entity\Joueur
      */
-    public function getGagnant()
-    {
+    public function getGagnant() {
         return $this->gagnant;
     }
+
 }

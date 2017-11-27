@@ -33,6 +33,23 @@ class Manche {
     private $idpartie;
 
     /**
+     * @var boolean
+     * 
+     * @ORM\Column(name="token", type="boolean", nullable=true)
+     */
+    private $fini;
+
+    public function setFini($b) {
+        $this->fini = $b;
+
+        return $this;
+    }
+
+    public function getFini() {
+        return $this->fini;
+    }
+
+    /**
      * Set idmanche
      *
      * @param integer $idmanche
