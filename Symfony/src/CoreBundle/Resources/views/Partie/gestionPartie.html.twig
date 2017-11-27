@@ -6,6 +6,7 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="{{ asset('bundles/core/css/partie.css') }}" type="text/css" />
         <title>Love Letter</title>
     </head>
     <body>
@@ -16,6 +17,14 @@
                 <li><button id="partie" onclick="location.href = '{{ app.request.uri }}partie/{{ partie.idpartie }}';">Partie {{ partie.idpartie }}</button></li>
                 <br>
             {% endfor %}
+        </ul>
+        <h3>Créer une Partie</h3>
+        <ul id="menu-accordeon">
+            <li><a href="#">Nombre de joueurs</a>
+                <ul>
+                    <li><a href="#">2 joueurs</a></li>
+                </ul>
+            </li>
         </ul>
         <footer>
             {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
