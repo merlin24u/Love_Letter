@@ -2,4 +2,9 @@ accueil:
     path:    /
     defaults: { _controller: CoreBundle:Partie:index }
 
-
+partie:
+    path:    /partie/{id}
+    defaults:
+        _controller: CoreBundle:Partie:partie
+    requirements:
+        id: \d+

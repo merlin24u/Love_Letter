@@ -9,7 +9,14 @@
         <title>Love Letter</title>
     </head>
     <body>
-        <h1>Partie n°{{ num }}</h1>
+        <h1>Gestionnaire de Partie</h1>
+        <h3>Rejoindre une Partie</h3>
+        <ul>
+            {% for partie in tab %}
+                <li><button id="partie" onclick="location.href = '{{ app.request.uri }}partie/{{ partie.idpartie }}';">Partie {{ partie.idpartie }}</button></li>
+                <br>
+            {% endfor %}
+        </ul>
         <footer>
             {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
                 Connecté en tant que {{ app.user.username }}
@@ -20,3 +27,4 @@
             {% endif %}
         </footer>
     </body>
+</html>

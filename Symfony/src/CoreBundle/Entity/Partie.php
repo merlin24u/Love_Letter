@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Partie
  *
  * @ORM\Table(name="Partie")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="CoreBundle\Repository\PartieRepository")
  */
 class Partie {
 
@@ -41,7 +41,7 @@ class Partie {
     /**
      * @var boolean
      * 
-     * @ORM\Column(name="token", type="boolean", nullable=true) 
+     * @ORM\Column(name="ouverte", type="boolean", nullable=true) 
      */
     private $ouverte;
 
