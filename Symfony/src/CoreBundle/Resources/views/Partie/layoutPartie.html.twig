@@ -11,21 +11,22 @@
         {% endblock %}
     </head>
     <body>
-        <nav class="navbar navbar-inverse">
-            <div class="container-fluid">
-                <div class="navbar-header">
-                    <a class="navbar-brand">LoveLetter</a>
+        {% block nav %}
+            <nav class="navbar navbar-inverse">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <a class="navbar-brand">LoveLetter</a>
+                    </div>
+                    <ul class="nav navbar-nav">
+                        <li class="active"><a href="#">Partie</a></li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a><span class="glyphicon glyphicon-user"></span> {{ app.user.username }}</a></li>
+                        <li><a href="{{ path('fos_user_security_logout') }}"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+                    </ul>
                 </div>
-                <ul class="nav navbar-nav">
-                    <li class="active"><a href="#">Partie</a></li>
-                </ul>
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a><span class="glyphicon glyphicon-user"></span> {{ app.user.username }}</a></li>
-                    <li><a href="{{ path('fos_user_security_logout') }}"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
-                </ul>
-            </div>
-        </nav>
-
+            </nav>
+        {% endblock %}
         <div id="content" class="col-md-9">
             {% block body %}
             {% endblock %}

@@ -1,6 +1,29 @@
 {% extends "CoreBundle:Partie:layoutPartie.html.twig" %}
 
+{% block nav %}
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand">LoveLetter</a>
+            </div>
+            <ul class="nav navbar-nav">
+                <li><a href="{{ app.request.getBaseURL() }}">Partie</a></li>
+                <li class="active"><a href="#">Partie {{ num }}</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a><span class="glyphicon glyphicon-user"></span> {{ app.user.username }}</a></li>
+                <li><a href="{{ path('fos_user_security_logout') }}"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+            </ul>
+        </div>
+    </nav>
+{% endblock %}    
+
 {% block body %}
     <h1>Partie n°{{ num }}</h1>
+    {% if o == false %}
+        <p>Il n'y a pas assez de joueur pour commencer la partie : Revenez plus tard !</p>
+    {%else%}
+        <p>La partie va commencer !</p>
+    {%endif%}
 {% endblock %}
 

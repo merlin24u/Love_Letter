@@ -1,6 +1,7 @@
 accueil:
     path:    /
-    defaults: { _controller: CoreBundle:Partie:index }
+    defaults:  
+        _controller: CoreBundle:Partie:index 
 
 partie:
     path:    /partie/{id}
@@ -8,3 +9,10 @@ partie:
         _controller: CoreBundle:Partie:partie
     requirements:
         id: \d+
+        
+add_partie:
+    path:    /addPartie/{nb}
+    defaults:
+        _controller: CoreBundle:Partie:add
+    requirements:
+        nb: \d+

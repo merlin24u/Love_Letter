@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Participe
  *
  * @ORM\Table(name="Participe")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="CoreBundle\Repository\ParticipeRepository")
  */
 class Participe {
 
@@ -36,7 +36,7 @@ class Participe {
      * @var \Joueur
      *
      * @ORM\GeneratedValue(strategy="NONE")
-     * @ORM\OneToOne(targetEntity="Joueur", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="Joueur", cascade={"persist"})
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="idLogin", referencedColumnName="id")
      * })
@@ -57,6 +57,30 @@ class Participe {
      * @ORM\Column(name="token", type="boolean", nullable=true)
      */
     private $token;
+
+    public function getIdparticipe() {
+        return $this->idparticipe;
+    }
+
+    public function getIdpartie() {
+        return $this->idpartie;
+    }
+
+    public function setIdpartie($p) {
+        $this->idpartie = $p;
+
+        return $this;
+    }
+
+    public function getIdlogin() {
+        return $this->idlogin;
+    }
+
+    public function setIdlogin($l) {
+        $this->idlogin = $l;
+
+        return $this;
+    }
 
     /**
      * Set score
