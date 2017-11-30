@@ -1,5 +1,22 @@
 {% extends "CoreBundle:Partie:layoutPartie.html.twig" %}
 
+{% block nav %}
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand">LoveLetter</a>
+            </div>
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="#">Partie</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="{{ app.request.uri }}{{ id }}"><span class="glyphicon glyphicon-user"></span> {{ app.user.username }}</a></li>
+                <li><a href="{{ path('fos_user_security_logout') }}"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+            </ul>
+        </div>
+    </nav>
+{% endblock %} 
+
 {% block body %}
     <h3>Rejoindre une Partie</h3>
     <ul>

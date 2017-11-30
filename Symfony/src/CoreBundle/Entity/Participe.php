@@ -13,17 +13,8 @@ use Doctrine\ORM\Mapping as ORM;
 class Participe {
 
     /**
-     * @var integer
-     *
-     * @ORM\Column(name="idParticipe", type="integer", nullable=false)
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
-     */
-    private $idparticipe;
-
-    /**
      * @var \Partie
-     *
+     * @ORM\Id
      * @ORM\GeneratedValue(strategy="NONE")
      * @ORM\ManyToOne(targetEntity="Partie", cascade={"persist"})
      * @ORM\JoinColumns({
@@ -34,7 +25,7 @@ class Participe {
 
     /**
      * @var \Joueur
-     *
+     * @ORM\Id
      * @ORM\GeneratedValue(strategy="NONE")
      * @ORM\ManyToOne(targetEntity="Joueur", cascade={"persist"})
      * @ORM\JoinColumns({
@@ -57,10 +48,6 @@ class Participe {
      * @ORM\Column(name="token", type="boolean", nullable=true)
      */
     private $token;
-
-    public function getIdparticipe() {
-        return $this->idparticipe;
-    }
 
     public function getIdpartie() {
         return $this->idpartie;

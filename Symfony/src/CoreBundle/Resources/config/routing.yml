@@ -16,3 +16,10 @@ add_partie:
         _controller: CoreBundle:Partie:add
     requirements:
         nb: \d+
+        
+mon_espace:
+    path:    /{id}
+    defaults:
+        _controller: CoreBundle:Partie:perso
+    requirements:
+        id: \d+    
