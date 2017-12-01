@@ -9,7 +9,6 @@ class PartieRepository extends EntityRepository {
     function getPartieOuv() {
 
         $qb = $this->createQueryBuilder('p');
-
         $qb->where('p.ouverte = :ouverte')->setParameter('ouverte', true)
                 ->orderBy('p.idpartie', 'ASC');
 

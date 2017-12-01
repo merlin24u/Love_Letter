@@ -13,18 +13,9 @@ use Doctrine\ORM\Mapping as ORM;
 class MainPossede {
 
     /**
-     * @var integer
-     *
-     * @ORM\Column(name="id", type="integer", nullable=false)
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
-     */
-    private $id;
-
-    /**
      * @var \Main
-     *
-     * @ORM\OneToOne(targetEntity="Main", cascade={"persist"})
+     * @ORM\Id
+     * @ORM\ManyToOne(targetEntity="Main", cascade={"persist"})
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="main", referencedColumnName="idMain")
      * })
@@ -33,17 +24,13 @@ class MainPossede {
 
     /**
      * @var \Carte
-     *
-     * @ORM\OneToOne(targetEntity="Carte", cascade={"persist"})
+     * @ORM\Id
+     * @ORM\ManyToOne(targetEntity="Carte", cascade={"persist"})
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="carte", referencedColumnName="idCarte")
      * })
      */
     private $carte;
-
-    public function getId() {
-        return $this->id;
-    }
 
     public function getCarte() {
         return $this->carte;

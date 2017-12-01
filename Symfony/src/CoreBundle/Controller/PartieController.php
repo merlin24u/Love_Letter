@@ -35,15 +35,22 @@ class PartieController extends Controller {
         $listeParticipe = $repository->getParticipe($u);
 
         $liste = array();
+        $b = true;
 
         if (empty($listeParticipe)) {
             $liste = $listeParties;
         } else {
             foreach ($listeParties as $partie) {
                 foreach ($listeParticipe as $part) {
-                    if ($partie != $part->getIdpartie()) {
-                        $liste[] = $partie;
+                    if ($partie == $part->getIdpartie()) {
+                        $b = false;
+                        break;
                     }
+                }
+
+                if ($b) {
+                    $liste[] = $partie;
+                    $b = true;
                 }
             }
         }
@@ -64,10 +71,10 @@ class PartieController extends Controller {
         $userManager = $this->get('fos_user.user_manager');
         $u = $userManager->findUserBy(array('username' => $user->getUsername()));
 
-        $p = $rep->findOneBy(array('idlogin' => $u));
+        $p = $rep->participe($u, $partie);
         $ouv = true;
 
-        if ($p == null) {
+        if (empty($p)) {
 
             $p = new Participe();
             $p->setIdpartie($partie);
@@ -101,14 +108,21 @@ class PartieController extends Controller {
         $partie->setGagnant(null);
         $partie->setOuverte(true);
 
-        $em->persist($partie);
-        $em->flush();
-
         $user = $this->get('security.token_storage')->getToken()->getUser();
         $userManager = $this->get('fos_user.user_manager');
         $u = $userManager->findUserBy(array('username' => $user->getUsername()));
 
-        return $this->render('CoreBundle:Partie:partie.html.twig', array('num' => $partie->getIdpartie(), 'o' => false, 'id' => $u));
+        $p = new Participe();
+        $p->setIdpartie($partie);
+        $p->setIdlogin($u);
+        $p->setScore(-1);
+        $p->setToken(false);
+
+        $em->persist($partie);
+        $em->persist($p);
+        $em->flush();
+
+        return $this->render('CoreBundle:Partie:partie.html.twig', array('num' => $partie->getIdpartie(), 'o' => true, 'id' => $u));
     }
 
     /**
