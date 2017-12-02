@@ -19,12 +19,14 @@
 {% endblock %}    
 
 {% block body %}
-    <h1>Mes Parties</h1>
-    <ul>
-        {% for partie in tab %}
-            <li><button class="btn btn-default" onclick="location.href = '{{ app.request.getBaseURL() }}/partie/{{ partie.idpartie }}';">Partie {{ partie.idpartie }}</button></li>
-            <br>
-        {% endfor %}
-    </ul>
+    <div class="container-fluid">
+        <h1>Mes Parties</h1>
+        <ul>
+            {% for partie in tab %}
+                <li><button class="btn btn-default" onclick="location.href = '{{ app.request.getBaseURL() }}/partie/{{ partie.idpartie }}';">Partie {{ partie.idpartie }}</button></li>
+                <br>
+            {% endfor %}
+        </ul>
+    </div>
 {% endblock %}
 

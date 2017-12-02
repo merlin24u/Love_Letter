@@ -1,5 +1,10 @@
 {% extends "CoreBundle:Partie:layoutPartie.html.twig" %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('bundles/core/css/partie.css') }}" type="text/css" />
+{% endblock %}    
+
 {% block nav %}
     <nav class="navbar navbar-inverse">
         <div class="container-fluid">
@@ -19,9 +24,116 @@
 {% endblock %}    
 
 {% block body %}
-    <h1>Partie n°{{ num }}</h1>
-    {% if o == false %}
-        <p>La partie va commencer !</p>
+    <div class="container-fluid">
+        {% if o == false %}
+            <br><br><br><br><br>
+            <div class="row">
+                <div class="col-sm-3">
+                    <div class="playingCards">
+                        <ul class="deck">
+                            <li><div class="card back"></div></li>
+                            <li><div class="card back"></div></li>
+                            <li><div class="card back"></div></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-sm-9">
+                    <div class="playingCards">
+                        <ul class="table">
+                            <li>
+                                <div class="card rank-7 spades"></div>
+                            </li>
+                            <li>
+                                <div class="card rank-7 spades"></div>
+                            </li>
+                            <li>
+                                <div class="card rank-7 spades"></div>
+                            </li>
+                            <li>
+                                <div class="card rank-7 spades"></div>
+                            </li>
+                            <li>
+                                <div class="card rank-7 spades"></div>
+                            </li>
+                            <li>
+                                <div class="card rank-7 spades"></div>
+                            </li>
+                            <li>
+                                <div class="card rank-7 spades"></div>
+                            </li>
+                            <li>
+                                <div class="card rank-7 spades"></div>
+                            </li>
+                            <li>
+                                <div class="card rank-7 spades"></div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <br<br><br><br><br><br<br><br><br><br><br<br><br>
+            <div class="row">
+                <div class="col-sm-4 col-sm-offset-5">
+                    <div class="playingCards">
+                        <ul class="hand">
+                            <li>
+                                <a class="card rank-1 spades" href="#"></a>
+                            </li>
+                            <li>
+                                <a class="card rank-7 spades" href="#"></a>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--
+        <div class="playingCards">
+            <ul class="table">
+                <li>
+                    <div class="card rank-7 spades"></div>
+                </li>
+                <li>
+                    <div class="card rank-7 spades"></div>
+                </li>
+            </ul>
+        </div>
+
+
+        <div class="playingCards">
+            <ul class="hand">
+                <li>
+                    <a class="card rank-7 spades" href="#">
+                    </a>
+                </li>
+                <li>
+                    <a class="card rank-7 spades" href="#">
+                    </a>
+                </li>
+                <li>
+                    <a class="card rank-7 spades" href="#">
+                    </a>
+                </li>
+                <li>
+                    <a class="card rank-7 spades" href="#">
+                    </a>
+                </li>
+                <li>
+                    <a class="card rank-7 spades" href="#">
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+
+        <div class="playingCards">
+            <ul class="deck">
+                <li><div class="card back">*</div></li>
+                <li><div class="card back">*</div></li>
+                <li><div class="card back">*</div></li>
+            </ul>
+        </div>
+        -->
     {%else%}
         <p>Il n'y a pas assez de joueur pour commencer la partie : Revenez plus tard !</p>
     {%endif%}

@@ -18,20 +18,21 @@
 {% endblock %} 
 
 {% block body %}
-    <h3>Rejoindre une Partie</h3>
-    <ul>
-        {% for partie in tab %}
-            <li><button class="btn btn-default" onclick="location.href = '{{ app.request.uri }}partie/{{ partie.idpartie }}';">Partie {{ partie.idpartie }}</button></li>
-            <br>
-        {% endfor %}
-    </ul>
-    <h3>Créer une Partie</h3>
-    <div class="dropdown">
-        <button class="btn btn-default dropdown-toggle" type="button" id="menu1" data-toggle="dropdown">Nombre de joueurs
-            <span class="caret"></span></button>
-        <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
-            <li role="presentation"><a role="menuitem" href="{{ app.request.uri }}addPartie/2">2 joueurs</a></li>
+    <div class="container-fluid">
+        <h3>Rejoindre une Partie</h3>
+        <ul>
+            {% for partie in tab %}
+                <li><button class="btn btn-default" onclick="location.href = '{{ app.request.uri }}partie/{{ partie.idpartie }}';">Partie {{ partie.idpartie }}</button></li>
+                <br>
+            {% endfor %}
         </ul>
+        <h3>Créer une Partie</h3>
+        <div class="dropdown">
+            <button class="btn btn-default dropdown-toggle" type="button" id="menu1" data-toggle="dropdown">Nombre de joueurs
+                <span class="caret"></span></button>
+            <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
+                <li role="presentation"><a role="menuitem" href="{{ app.request.uri }}addPartie/2">2 joueurs</a></li>
+            </ul>
+        </div>
     </div>
-</div>
 {% endblock %}
