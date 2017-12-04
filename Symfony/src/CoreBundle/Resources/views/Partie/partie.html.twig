@@ -41,7 +41,7 @@
                     <div class="playingCards">
                         <ul class="table">
                             <li>
-                                <div class="card rank-7 spades"></div>
+                                <div class="card rank-6 spades"></div>
                             </li>
                             <li>
                                 <div class="card rank-7 spades"></div>
@@ -71,7 +71,7 @@
                     </div>
                 </div>
             </div>
-            <br<br><br><br><br><br<br><br><br><br><br<br><br>
+            <br><br><br><br><br><br<br><br><br><br><br<br><br>
             <div class="row">
                 <div class="col-sm-4 col-sm-offset-5">
                     <div class="playingCards">
@@ -86,56 +86,12 @@
                 </div>
             </div>
         </div>
-
-        <!--
-        <div class="playingCards">
-            <ul class="table">
-                <li>
-                    <div class="card rank-7 spades"></div>
-                </li>
-                <li>
-                    <div class="card rank-7 spades"></div>
-                </li>
-            </ul>
-        </div>
-
-
-        <div class="playingCards">
-            <ul class="hand">
-                <li>
-                    <a class="card rank-7 spades" href="#">
-                    </a>
-                </li>
-                <li>
-                    <a class="card rank-7 spades" href="#">
-                    </a>
-                </li>
-                <li>
-                    <a class="card rank-7 spades" href="#">
-                    </a>
-                </li>
-                <li>
-                    <a class="card rank-7 spades" href="#">
-                    </a>
-                </li>
-                <li>
-                    <a class="card rank-7 spades" href="#">
-                    </a>
-                </li>
-            </ul>
-        </div>
-
-
-        <div class="playingCards">
-            <ul class="deck">
-                <li><div class="card back">*</div></li>
-                <li><div class="card back">*</div></li>
-                <li><div class="card back">*</div></li>
-            </ul>
-        </div>
-        -->
     {%else%}
-        <p>Il n'y a pas assez de joueur pour commencer la partie : Revenez plus tard !</p>
+        <div class="alert alert-info alert-dismissable fade in">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Info :</strong> Il n'y a pas assez de joueurs pour commencer la partie : Revenez plus tard !
+            <a href="{{ app.request.getBaseURL() }}/{{ id.id }}">Retour</a>
+        </div>
     {%endif%}
 {% endblock %}
 

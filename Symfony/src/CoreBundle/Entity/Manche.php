@@ -35,7 +35,7 @@ class Manche {
     /**
      * @var boolean
      * 
-     * @ORM\Column(name="token", type="boolean", nullable=true)
+     * @ORM\Column(name="fini", type="boolean", nullable=true)
      */
     private $fini;
 

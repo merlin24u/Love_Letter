@@ -4,6 +4,10 @@ namespace CoreBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use CoreBundle\Entity\Partie;
+use CoreBundle\Entity\Deck;
+use CoreBundle\Entity\Main;
+use CoreBundle\Entity\Manche;
+use CoreBundle\Entity\Tour;
 use CoreBundle\Entity\Joueur;
 use CoreBundle\Entity\Participe;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -87,8 +91,51 @@ class PartieController extends Controller {
         $listeParties = $rep->getPartie($partie);
 
         if (sizeof($listeParties) == $partie->getNbjoueurs()) {
-            $partie->setOuverte(false);
+            if ($partie->getOuverte()) {
+                $partie->setOuverte(false);
+            }
+
             $ouv = false;
+
+            $rep = $em->getRepository('CoreBundle:Manche');
+            $manche = $rep->findOneBy(array('idpartie' => $partie));
+
+            if (empty($manche)) {
+                $manche = new Manche();
+                $manche->setFini(false);
+                $manche->setIdpartie($partie);
+                $em->persist($manche);
+            }
+
+            $rep = $em->getRepository('CoreBundle:Tour');
+            $tour = $rep->findOneBy(array('idmanche' => $manche));
+
+            if (empty($tour)) {
+                $tour = new Tour();
+                $tour->setIdmanche($manche);
+                $em->persist($tour);
+            }
+
+            $rep = $em->getRepository('CoreBundle:Deck');
+            $deck = $rep->findOneBy(array('idlogin' => $u));
+
+            if (empty($deck)) {
+                $deck = new Deck();
+                $deck->setIdlogin($u);
+                $deck->setIdmanche($manche);
+                $em->persist($deck);
+            }
+
+            $rep = $em->getRepository('CoreBundle:Deck');
+            $main = $rep->findOneBy(array('idlogin' => $u));
+
+            if (empty($main)) {
+                $main = new Main();
+                $main->setCartejouee(NULL);
+                $main->setIdlogin($u);
+                $main->setIdtour($tour);
+                $em->persist($main);
+            }
         }
 
         $em->flush();
