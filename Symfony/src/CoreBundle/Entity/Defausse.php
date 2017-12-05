@@ -24,7 +24,7 @@ class Defausse {
     /**
      * @var \Joueur
      *
-     * @ORM\OneToOne(targetEntity="Joueur", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="Joueur", cascade={"persist"})
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="idLogin", referencedColumnName="id")
      * })

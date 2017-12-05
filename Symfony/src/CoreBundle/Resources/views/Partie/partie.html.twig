@@ -41,31 +41,24 @@
                     <div class="playingCards">
                         <ul class="table">
                             <li>
-                                <div class="card rank-6 spades"></div>
+                                <div class="card rank-1"></div>
                             </li>
                             <li>
-                                <div class="card rank-7 spades"></div>
+                                <div class="card rank-4"></div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-9 col-sm-offset-3">
+                    <div class="playingCards">
+                        <ul class="table">
+                            <li>
+                                <div class="card rank-6"></div>
                             </li>
                             <li>
-                                <div class="card rank-7 spades"></div>
-                            </li>
-                            <li>
-                                <div class="card rank-7 spades"></div>
-                            </li>
-                            <li>
-                                <div class="card rank-7 spades"></div>
-                            </li>
-                            <li>
-                                <div class="card rank-7 spades"></div>
-                            </li>
-                            <li>
-                                <div class="card rank-7 spades"></div>
-                            </li>
-                            <li>
-                                <div class="card rank-7 spades"></div>
-                            </li>
-                            <li>
-                                <div class="card rank-7 spades"></div>
+                                <div class="card rank-7"></div>
                             </li>
                         </ul>
                     </div>
@@ -77,20 +70,18 @@
                     <div class="playingCards">
                         <ul class="hand">
                             <li>
-                                <a class="card rank-1 spades" href="#"></a>
+                                <a class="card rank-1" href="#"></a>
                             </li>
                             <li>
-                                <a class="card rank-7 spades" href="#"></a>
+                                <a class="card rank-7" href="#"></a>
                         </ul>
                     </div>
                 </div>
             </div>
         </div>
     {%else%}
-        <div class="alert alert-info alert-dismissable fade in">
-            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <div class="alert alert-warning">
             <strong>Info :</strong> Il n'y a pas assez de joueurs pour commencer la partie : Revenez plus tard !
-            <a href="{{ app.request.getBaseURL() }}/{{ id.id }}">Retour</a>
         </div>
     {%endif%}
 {% endblock %}

@@ -86,6 +86,7 @@ class PartieController extends Controller {
             $p->setScore(-1);
             $p->setToken(false);
             $em->persist($p);
+            $em->flush();
         }
 
         $listeParties = $rep->getPartie($partie);
@@ -177,8 +178,12 @@ class PartieController extends Controller {
      */
     public function persoAction($id) {
 
+        $user = $this->get('security.token_storage')->getToken()->getUser();
         $userManager = $this->get('fos_user.user_manager');
-        $u = $userManager->findUserBy(array('id' => $id));
+        $u = $userManager->findUserBy(array('username' => $user->getUsername()));
+
+        if ($u->getId() != $id)
+            $this->redirectToRoute('accueil');
 
         $em = $this->getDoctrine()->getManager();
         $rep = $em->getRepository('CoreBundle:Participe');

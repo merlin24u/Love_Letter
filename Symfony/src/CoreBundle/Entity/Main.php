@@ -25,7 +25,7 @@ class Main {
      * @var \Joueur
      *
      * @ORM\GeneratedValue(strategy="NONE")
-     * @ORM\OneToOne(targetEntity="Joueur", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="Joueur", cascade={"persist"})
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="idLogin", referencedColumnName="id")
      * })
@@ -36,7 +36,7 @@ class Main {
      * @var \Tour
      *
      * @ORM\GeneratedValue(strategy="NONE")
-     * @ORM\OneToOne(targetEntity="Tour", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="Tour", cascade={"persist"})
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="idTour", referencedColumnName="idTour")
      * })

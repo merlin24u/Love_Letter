@@ -46,50 +46,50 @@ body{
     background-size: 100% 100%;
 }
 
-.playingCards .card.rank-1.spades {
+.playingCards .card.rank-1 {
     background-image: url(../img/Guard.png);
     background-repeat: no-repeat;
     background-size: 100% 100%;
 }
 
-.playingCards .card.rank-2.spades {
+.playingCards .card.rank-2 {
     background-image: url(../img/Priest.png);
     background-repeat: no-repeat;
     background-size: 100% 100%;
 }
 
-.playingCards .card.rank-3.spades {
+.playingCards .card.rank-3 {
     background-image: url(../img/Baron.png);
     background-repeat: no-repeat;
     background-size: 100% 100%;
 }
 
-.playingCards .card.rank-4.spades {
+.playingCards .card.rank-4 {
     background-image: url(../img/Handmaid.png);
     background-repeat: no-repeat;
     background-size: 100% 100%;
 }
 
-.playingCards .card.rank-5.spades {
+.playingCards .card.rank-5 {
     background-image: url(../img/Prince.png);
     background-repeat: no-repeat;
     background-size: 100% 100%;
 }
 
-.playingCards .card.rank-6.spades {
+.playingCards .card.rank-6 {
     background-image: url(../img/King.png);
     background-repeat: no-repeat;
     background-size: 100% 100%;
 }
 
-.playingCards .card.rank-7.spades {
+.playingCards .card.rank-7 {
     background-image: url(../img/Countess.png);
     background-repeat: no-repeat;
     background-size: 100% 100%;
 }
 
 
-.playingCards .card.rank-8.spades {
+.playingCards .card.rank-8 {
     background-image: url(../img/Princess.png);
     background-repeat: no-repeat;
     background-size: 100% 100%;
