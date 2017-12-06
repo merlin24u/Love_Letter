@@ -39,16 +39,9 @@ class Carte {
     /**
      * @var string
      *
-     * @ORM\Column(name="effet", type="string", length=50, nullable=true)
+     * @ORM\Column(name="effet", type="string", length=200, nullable=true)
      */
     private $effet;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="img", type="string", length=50, nullable=true)
-     */
-    private $img;
 
     public function getIdcarte() {
         return $this->idcarte;
@@ -106,27 +99,5 @@ class Carte {
     public function getEffet() {
         return $this->effet;
     }
-
-    /**
-     * Set img
-     *
-     * @param string $img
-     *
-     * @return Carte
-     */
-    public function setImg($img) {
-        $this->img = $img;
-
-        return $this;
-    }
-
-    /**
-     * Get img
-     *
-     * @return string
-     */
-    public function getImg() {
-        return $this->img;
-    }
-
+    
 }

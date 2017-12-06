@@ -26,8 +26,7 @@
 {% block body %}
     <div class="container-fluid">
         {% if o == false %}
-            <br><br><br><br><br>
-            <div class="row">
+            <div class="row deck">
                 <div class="col-sm-3">
                     <div class="playingCards">
                         <ul class="deck">
@@ -64,9 +63,8 @@
                     </div>
                 </div>
             </div>
-            <br><br><br><br><br><br<br><br><br><br><br<br><br>
-            <div class="row">
-                <div class="col-sm-4 col-sm-offset-5">
+            <div class="row hand">
+                <div class="col-sm-4 col-sm-offset-4">
                     <div class="playingCards">
                         <ul class="hand">
                             <li>
@@ -78,11 +76,16 @@
                     </div>
                 </div>
             </div>
-        </div>
-    {%else%}
-        <div class="alert alert-warning">
-            <strong>Info :</strong> Il n'y a pas assez de joueurs pour commencer la partie : Revenez plus tard !
-        </div>
-    {%endif%}
+        {%else%}
+            <div class="alert alert-warning">
+                <strong>Info :</strong> Il n'y a pas assez de joueurs pour commencer la partie : Revenez plus tard !
+            </div>
+        {%endif%}
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript" src="{{ asset('bundles/core/js/partie.js') }}"></script>
 {% endblock %}
 

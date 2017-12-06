@@ -42,19 +42,6 @@ class Defausse {
     private $idmanche;
 
     /**
-     * Set iddefausse
-     *
-     * @param integer $iddefausse
-     *
-     * @return Defausse
-     */
-    public function setIddefausse($iddefausse) {
-        $this->iddefausse = $iddefausse;
-
-        return $this;
-    }
-
-    /**
      * Get iddefausse
      *
      * @return integer
@@ -106,5 +93,5 @@ class Defausse {
     public function getIdmanche() {
         return $this->idmanche;
     }
-    
+
 }

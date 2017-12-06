@@ -13,8 +13,15 @@ use Doctrine\ORM\Mapping as ORM;
 class DefaussePossede {
 
     /**
-     * @var \Defausse
      * @ORM\Id
+     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+    
+    /**
+     * @var \Defausse
+     * 
      * @ORM\ManyToOne(targetEntity="Defausse", cascade={"persist"})
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="defausse", referencedColumnName="idDefausse")
@@ -24,13 +31,17 @@ class DefaussePossede {
 
     /**
      * @var \Carte
-     * @ORM\Id
+     * 
      * @ORM\ManyToOne(targetEntity="Carte", cascade={"persist"})
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="carte", referencedColumnName="idCarte")
      * })
      */
     private $carte;
+    
+    public function getId(){
+        return $this->id;
+    }
 
     public function getDefausse() {
         return $this->defausse;

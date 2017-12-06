@@ -27,10 +27,18 @@ body{
     background-size: cover; 
 }
 
+.row.hand {
+    margin-top: 150px;
+}
+
+.row.deck {
+    margin-top: 100px;
+}
+
 .playingCards a.card {
     text-decoration: none;
 }
-/* selected and hover state */
+
 .playingCards a.card:hover, .playingCards a.card:active, .playingCards a.card:focus,
 .playingCards label.card:hover,
 .playingCards strong .card {
@@ -157,7 +165,6 @@ body{
 .playingCards ul.hand li:nth-child(25) { left: 26.4em; }
 .playingCards ul.hand li:nth-child(26) { left: 27.5em; }
 
-/* deck */
 .playingCards ul.deck li:nth-child(1)  { left: 0;    bottom: 0; }
 .playingCards ul.deck li:nth-child(2)  { left: 2px;  bottom: 1px; }
 .playingCards ul.deck li:nth-child(3)  { left: 4px;  bottom: 2px; }
@@ -191,8 +198,10 @@ body{
 .playingCards ul.deck li:nth-child(31) { left: 60px; bottom: 30px; }
 .playingCards ul.deck li:nth-child(32) { left: 62px; bottom: 31px; }
 
+/*
 .footer {
     position: absolute;
     bottom: 0;
     width: 100%;
 }
+*/
