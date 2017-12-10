@@ -24,7 +24,7 @@
 {% endblock %}    
 
 {% block body %}
-    <div class="container-fluid">
+    <div class="container-fluid" id="myContainer" data-login ="{{ id.id  }}" data-partie="{{ num }}">
         {% if o == false %}
             <div class="row deck">
                 <div class="col-sm-3">
@@ -55,8 +55,8 @@
             <div class="row hand">
                 <div class="col-sm-4 col-sm-offset-5">
                     <div class="playingCards">
-                            <ul class="hand" id="myHand" data-token="{{ token }}" data-main="{{ hand.idmain }}">
-                            </ul>
+                        <ul class="hand" id="myHand" data-token="{{ token }}" data-main="{{ hand.idmain }}">
+                        </ul>
                     </div>
                 </div>
             </div>

@@ -91,12 +91,14 @@ class PartieController extends Controller {
             $p->setIdlogin($u);
             $p->setScore(0);
             $p->setToken(false);
+            $p->setPioche(false);
             $em->persist($p);
             $em->flush();
         }
 
         //token pour savoir si c'est au tour du joueur 
         $token = $p->getToken();
+        $pioche = $p->getPioche();
 
         $listeParties = $rep->getPartie($partie);
 
@@ -107,6 +109,8 @@ class PartieController extends Controller {
                 //donne le jeton au joueur qui lance la partie
                 $p->setToken(true);
                 $token = true;
+                $p->setPioche(true);
+                $pioche = true;
             }
 
             $ouv = false;
@@ -201,7 +205,7 @@ class PartieController extends Controller {
             $rep = $em->getRepository('CoreBundle:Main');
             $main = $rep->findOneBy(array('idlogin' => $u, 'idtour' => $tour));
 
-            if (empty($main)) {
+            if ($main == NULL) {
                 $main = new Main();
                 $main->setCartejouee(NULL);
                 $main->setIdlogin($u);
@@ -218,11 +222,31 @@ class PartieController extends Controller {
                 $em->persist($mainP);
                 $em->remove($carteD[sizeof($carteD) - 1]);
             }
+
+            $em->flush();
+
+            //si c'est le tour du joueur, il pioche
+            if ($token && $pioche) {
+                $rep = $em->getRepository('CoreBundle:DeckPossede');
+                $carteD = $rep->findBy(array('deck' => $deck));
+
+                $rep = $em->getRepository('CoreBundle:MainPossede');
+                $mainP = new MainPossede();
+                $mainP->setMain($main);
+                $mainP->setCarte($carteD[sizeof($carteD) - 1]->getCarte());
+                $em->persist($mainP);
+                $em->remove($carteD[sizeof($carteD) - 1]);
+
+                //il ne peut plus piocher
+                $rep = $em->getRepository('CoreBundle:Participe');
+                $partiePioche = $rep->findOneBy(array('idlogin' => $u, 'idpartie' => $partie));
+                $partiePioche->setPioche(false);
+            }
         }
 
         $em->flush();
 
-        //récupére defausse de l'adversaire
+        //récupère defausse de l'adversaire
         $em = $this->getDoctrine()->getManager();
         $rep = $em->getRepository('CoreBundle:Participe');
 

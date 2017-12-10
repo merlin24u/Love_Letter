@@ -38,6 +38,16 @@ main:
     requirements:
         id: \d+ 
         
+delete_main:
+    path:    /deleteMain/{id}/{val}/{user}/{partie}
+    defaults:
+        _controller: CoreBundle:Main:delete
+    requirements:
+        id: \d+ 
+        val: \d+
+        user: \d+
+        partie: \d+
+        
 defausse:
     path:    /defausse/{id}
     defaults:

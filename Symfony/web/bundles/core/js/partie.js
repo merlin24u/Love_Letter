@@ -5,8 +5,10 @@ $(document).ready(function () {
     var defausse = $('#myDefausse').attr('data-defausse');
     var defausse2 = $('#otherDefausse').attr('data-defausse');
     var token = $('#myHand').attr('data-token');
+    var user = $('#myContainer').attr('data-login');
+    var partie = $('#myContainer').attr('data-partie');
 
-    getAjax("http://localhost/L3/Web_Projet/Symfony/web/app_dev.php/deck/" + deck, function (resp) {
+    getAjax("GET", "http://localhost/L3/Web_Projet/Symfony/web/app_dev.php/deck/" + deck, function (resp) {
         var elem, elem2;
         $.each(resp['Cartes'], function (i, val) {
             elem = document.createElement("li");
@@ -17,21 +19,23 @@ $(document).ready(function () {
             $('#myDeck').append(elem);
         });
     });
-
-    getAjax("http://localhost/L3/Web_Projet/Symfony/web/app_dev.php/main/" + main, function (resp) {
+    getAjax("GET", "http://localhost/L3/Web_Projet/Symfony/web/app_dev.php/main/" + main, function (resp) {
         var elem, elem2;
         $.each(resp['Cartes'], function (i, val) {
             elem = document.createElement("li");
             elem2 = document.createElement("a");
             elem2.className = "card rank-" + val;
-            elem2.href = "#";
+            if (token) {
+                elem2.addEventListener("click", function () {
+                    jouerCarte(val);
+                });
+            } else
+                elem2.href = "#";
             elem.appendChild(elem2);
             $('#myHand').append(elem);
         });
-
     });
-
-    getAjax("http://localhost/L3/Web_Projet/Symfony/web/app_dev.php/defausse/" + defausse, function (resp) {
+    getAjax("GET", "http://localhost/L3/Web_Projet/Symfony/web/app_dev.php/defausse/" + defausse, function (resp) {
         var elem, elem2;
         $.each(resp['Cartes'], function (i, val) {
             console.log(resp);
@@ -41,11 +45,9 @@ $(document).ready(function () {
             elem.appendChild(elem2);
             $('#myDefausse').append(elem);
         });
-
     });
-
-    if (defausse2 !== null) {
-        getAjax("http://localhost/L3/Web_Projet/Symfony/web/app_dev.php/defausse/" + defausse2, function (resp) {
+    if (defausse2 !== "null") {
+        getAjax("GET", "http://localhost/L3/Web_Projet/Symfony/web/app_dev.php/defausse/" + defausse2, function (resp) {
             var elem, elem2;
             $.each(resp['Cartes'], function (i, val) {
                 console.log(resp);
@@ -55,13 +57,12 @@ $(document).ready(function () {
                 elem.appendChild(elem2);
                 $('#otherDefausse').append(elem);
             });
-
         });
     }
 
-    function getAjax(url, d) {
+    function getAjax(type, url, d) {
         $.ajax({
-            type: "GET",
+            type: type,
             url: url
         }).done(d)
                 .error(function () {
@@ -69,9 +70,18 @@ $(document).ready(function () {
                 });
     }
 
-    $('#myHand').click(function () {
-        if (token) {
-            alert();
-        }
-    });
+    function jouerCarte(val) {
+        getAjax("POST", "http://localhost/L3/Web_Projet/Symfony/web/app_dev.php/deleteMain/" + main + "/" + val + "/" + user + "/" + partie, function (resp) {
+            var elem, elem2;
+            $.each(resp['Cartes'], function (i, val) {
+                elem = document.createElement("li");
+                elem2 = document.createElement("a");
+                elem2.className = "card rank-" + val;
+                elem2.href = "#";
+                elem.appendChild(elem2);
+                $('#myHand').append(elem);
+            });
+        });
+    }
+
 });

@@ -49,6 +49,14 @@ class Participe {
      */
     private $token;
 
+    /**
+     *
+     * @var boolean
+     * 
+     * @ORM\Column(name="pioche", type="boolean", nullable=true)
+     */
+    private $pioche;
+
     public function getIdpartie() {
         return $this->idpartie;
     }
@@ -99,6 +107,16 @@ class Participe {
 
     public function getToken() {
         return $this->token;
+    }
+
+    public function setPioche($p) {
+        $this->pioche = $p;
+
+        return $this;
+    }
+
+    public function getPioche() {
+        return $this->pioche;
     }
 
 }

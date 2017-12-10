@@ -30,7 +30,7 @@ class DefausseController extends Controller {
                 $res = array();
 
                 foreach ($listC as $c) {
-                    $res[] = $c->getCarte()->getValeur();
+                    $res[] = $c->getCarte()->getIdcarte();
                 }
 
                 return new JsonResponse(array('Cartes' => $res));
