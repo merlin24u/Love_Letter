@@ -104,22 +104,26 @@ class PartieController extends Controller {
             $ouv = false;
 
             $rep = $em->getRepository('CoreBundle:Manche');
-            $manche = $rep->findOneBy(array('idpartie' => $partie));
+            $manche = $rep->findBy(array('idpartie' => $partie));
 
             if (empty($manche)) {
                 $manche = new Manche();
                 $manche->setFini(false);
                 $manche->setIdpartie($partie);
                 $em->persist($manche);
+            } else {
+                $manche = $manche[sizeof($manche) - 1];
             }
 
             $rep = $em->getRepository('CoreBundle:Tour');
-            $tour = $rep->findOneBy(array('idmanche' => $manche));
+            $tour = $rep->findBy(array('idmanche' => $manche));
 
             if (empty($tour)) {
                 $tour = new Tour();
                 $tour->setIdmanche($manche);
                 $em->persist($tour);
+            } else {
+                $tour = $tour[sizeof($tour) - 1];
             }
 
             $rep = $em->getRepository('CoreBundle:Deck');
@@ -207,7 +211,7 @@ class PartieController extends Controller {
         $em->flush();
 
 
-        return $this->render('CoreBundle:Partie:partie.html.twig', array('num' => $partie->getIdpartie(), 'o' => $ouv, 'id' => $u));
+        return $this->render('CoreBundle:Partie:partie.html.twig', array('num' => $partie->getIdpartie(), 'o' => $ouv, 'id' => $u, 'deck' => $deck, 'hand' => $main));
     }
 
     /**

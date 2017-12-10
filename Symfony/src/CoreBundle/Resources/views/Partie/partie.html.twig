@@ -29,10 +29,7 @@
             <div class="row deck">
                 <div class="col-sm-3">
                     <div class="playingCards">
-                        <ul class="deck">
-                            <li><div class="card back"></div></li>
-                            <li><div class="card back"></div></li>
-                            <li><div class="card back"></div></li>
+                        <ul class="deck" id="myDeck" data-deck="{{ deck.iddeck }}">
                         </ul>
                     </div>
                 </div>
@@ -66,12 +63,7 @@
             <div class="row hand">
                 <div class="col-sm-4 col-sm-offset-4">
                     <div class="playingCards">
-                        <ul class="hand">
-                            <li>
-                                <a class="card rank-1" href="#"></a>
-                            </li>
-                            <li>
-                                <a class="card rank-7" href="#"></a>
+                        <ul class="hand" id="myHand" data-main="{{ hand.idmain }}">
                         </ul>
                     </div>
                 </div>

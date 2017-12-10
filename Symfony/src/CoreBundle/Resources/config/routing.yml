@@ -23,3 +23,17 @@ mon_espace:
         _controller: CoreBundle:Partie:perso
     requirements:
         id: \d+    
+        
+deck:
+    path:    /deck/{id}
+    defaults:
+        _controller: CoreBundle:Deck:index
+    requirements:
+        id: \d+ 
+        
+main:
+    path:    /main/{id}
+    defaults:
+        _controller: CoreBundle:Main:index
+    requirements:
+        id: \d+ 
