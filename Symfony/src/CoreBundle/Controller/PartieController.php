@@ -73,6 +73,7 @@ class PartieController extends Controller {
      */
     public function partieAction(Partie $partie) {
 
+        //Acces à une partie
         $em = $this->getDoctrine()->getManager();
         $rep = $em->getRepository('CoreBundle:Participe');
 
@@ -80,25 +81,32 @@ class PartieController extends Controller {
         $userManager = $this->get('fos_user.user_manager');
         $u = $userManager->findUserBy(array('username' => $user->getUsername()));
 
-        $p = $rep->participe($u, $partie);
+        $p = $rep->findOneBy(array('idpartie' => $partie, 'idlogin' => $u));
         $ouv = true;
 
-        if (empty($p)) {
+        if ($p == null) {
 
             $p = new Participe();
             $p->setIdpartie($partie);
             $p->setIdlogin($u);
-            $p->setScore(-1);
+            $p->setScore(0);
             $p->setToken(false);
             $em->persist($p);
             $em->flush();
         }
+
+        //token pour savoir si c'est au tour du joueur 
+        $token = $p->getToken();
 
         $listeParties = $rep->getPartie($partie);
 
         if (sizeof($listeParties) == $partie->getNbjoueurs()) {
             if ($partie->getOuverte()) {
                 $partie->setOuverte(false);
+
+                //donne le jeton au joueur qui lance la partie
+                $p->setToken(true);
+                $token = true;
             }
 
             $ouv = false;
@@ -125,6 +133,8 @@ class PartieController extends Controller {
             } else {
                 $tour = $tour[sizeof($tour) - 1];
             }
+
+            $em->flush();
 
             $rep = $em->getRepository('CoreBundle:Deck');
             $deck = $rep->findOneBy(array('idlogin' => $u, 'idmanche' => $manche));
@@ -164,8 +174,10 @@ class PartieController extends Controller {
                 }
             }
 
+            $em->flush();
+
             $rep = $em->getRepository('CoreBundle:Defausse');
-            $defausse = $rep->findBy(array('idlogin' => $u, 'idmanche' => $manche));
+            $defausse = $rep->findOneBy(array('idlogin' => $u, 'idmanche' => $manche));
 
             if (empty($defausse)) {
                 $defausse = new Defausse();
@@ -181,9 +193,10 @@ class PartieController extends Controller {
                 $defausseP->setCarte($carteD[sizeof($carteD) - 1]->getCarte());
                 $defausseP->setDefausse($defausse);
                 $em->persist($defausseP);
-
                 $em->remove($carteD[sizeof($carteD) - 1]);
             }
+
+            $em->flush();
 
             $rep = $em->getRepository('CoreBundle:Main');
             $main = $rep->findOneBy(array('idlogin' => $u, 'idtour' => $tour));
@@ -203,15 +216,26 @@ class PartieController extends Controller {
                 $mainP->setMain($main);
                 $mainP->setCarte($carteD[sizeof($carteD) - 1]->getCarte());
                 $em->persist($mainP);
-
                 $em->remove($carteD[sizeof($carteD) - 1]);
             }
         }
 
         $em->flush();
 
+        //récupére defausse de l'adversaire
+        $em = $this->getDoctrine()->getManager();
+        $rep = $em->getRepository('CoreBundle:Participe');
 
-        return $this->render('CoreBundle:Partie:partie.html.twig', array('num' => $partie->getIdpartie(), 'o' => $ouv, 'id' => $u, 'deck' => $deck, 'hand' => $main));
+        $adversaire = $rep->adversaire($u, $partie);
+
+        if ($adversaire != null) {
+            $rep = $em->getRepository('CoreBundle:Defausse');
+            $defausse2 = $rep->findOneBy(array('idlogin' => $adversaire, 'idmanche' => $manche));
+        } else
+            $defausse2 = null;
+
+        return $this->render('CoreBundle:Partie:partie.html.twig', array('num' => $partie->getIdpartie(), 'o' => $ouv, 'id' => $u, 'deck' => $deck, 'hand' => $main,
+                    'def' => $defausse, 'def2' => $defausse2, 'token' => $token));
     }
 
     /**

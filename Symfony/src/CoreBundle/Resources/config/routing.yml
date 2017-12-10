@@ -37,3 +37,10 @@ main:
         _controller: CoreBundle:Main:index
     requirements:
         id: \d+ 
+        
+defausse:
+    path:    /defausse/{id}
+    defaults:
+        _controller: CoreBundle:Defausse:index
+    requirements:
+        id: \d+ 

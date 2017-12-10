@@ -28,4 +28,12 @@ class ParticipeRepository extends EntityRepository {
         return $qb->getQuery()->getResult();
     }
 
+    public function adversaire($l, $p) {
+        $qb = $this->createQueryBuilder('p');
+        $qb->where('p.idpartie = :idpartie')->setParameter('idpartie', $p)
+                ->andWhere('p.idlogin != :idlogin')->setParameter('idlogin', $l);
+
+        return $qb->getQuery()->getResult();
+    }
+
 }

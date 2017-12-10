@@ -35,36 +35,28 @@
                 </div>
                 <div class="col-sm-9">
                     <div class="playingCards">
-                        <ul class="table">
-                            <li>
-                                <div class="card rank-1"></div>
-                            </li>
-                            <li>
-                                <div class="card rank-4"></div>
-                            </li>
-                        </ul>
+                        {% if def2 != null %} 
+                            <ul class="table" id="otherDefausse" data-defausse="{{ def2.iddefausse }}">
+                            {% else %}
+                                <ul class="table" id="otherDefausse" data-defausse=null>
+                                {%endif%}
+                            </ul>
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-sm-9 col-sm-offset-3">
                     <div class="playingCards">
-                        <ul class="table">
-                            <li>
-                                <div class="card rank-6"></div>
-                            </li>
-                            <li>
-                                <div class="card rank-7"></div>
-                            </li>
+                        <ul class="table" id="myDefausse" data-defausse="{{ def.iddefausse }}">
                         </ul>
                     </div>
                 </div>
             </div>
             <div class="row hand">
-                <div class="col-sm-4 col-sm-offset-4">
+                <div class="col-sm-4 col-sm-offset-5">
                     <div class="playingCards">
-                        <ul class="hand" id="myHand" data-main="{{ hand.idmain }}">
-                        </ul>
+                            <ul class="hand" id="myHand" data-token="{{ token }}" data-main="{{ hand.idmain }}">
+                            </ul>
                     </div>
                 </div>
             </div>
@@ -78,6 +70,8 @@
 
 {% block javascripts %}
     {{ parent() }}
-    <script type="text/javascript" src="{{ asset('bundles/core/js/partie.js') }}"></script>
+    {% if o == false %}
+        <script type="text/javascript" src="{{ asset('bundles/core/js/partie.js') }}"></script>
+    {%endif%}
 {% endblock %}
 
