@@ -8,8 +8,11 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use CoreBundle\Entity\Main;
 use CoreBundle\Entity\MainPossede;
 use CoreBundle\Entity\Participe;
+use CoreBundle\Entity\Defausse;
+use CoreBundle\Entity\DefaussePossede;
 use CoreBundle\Entity\Partie;
 use CoreBundle\Entity\Joueur;
+use CoreBundle\Entity\Carte;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
@@ -45,8 +48,10 @@ class MainController extends Controller {
      * @Security("has_role('ROLE_USER')")
      * @ParamConverter("partie", options={"mapping": {"partie": "idpartie"}})
      * @ParamConverter("user", options={"mapping": {"user": "id"}})
+     * @ParamConverter("def", options={"mapping": {"def": "iddefausse"}})
+     * @ParamConverter("val", options={"mapping": {"val": "idcarte"}})
      */
-    public function deleteAction($id, $val, Joueur $user, Partie $partie, Request $request) {
+    public function deleteAction($id, Carte $val, Joueur $user, Partie $partie, Defausse $def, Request $request) {
         if ($request->isXmlHttpRequest()) {
 
             $em = $this->getDoctrine()->getManager();
@@ -68,9 +73,29 @@ class MainController extends Controller {
                     $res[] = $c->getCarte()->getIdcarte();
                 }
 
+                $rep = $em->getRepository('CoreBundle:DefaussePossede');
+                $Ndef = new DefaussePossede();
+                $Ndef->setCarte($val);
+                $Ndef->setDefausse($def);
+                $em->persist($Ndef);
+
                 $rep = $em->getRepository('CoreBundle:Participe');
                 $part = $rep->findOneBy(array('idlogin' => $user, 'idpartie' => $partie));
                 $part->setToken(false);
+
+                $rep = $em->getRepository('CoreBundle:Participe');
+                $Idadversaire = $rep->adversaire($user, $partie);
+
+                if (!empty($Idadversaire)) {
+                    $user2 = $this->get('security.token_storage')->getToken()->getUser();
+                    $userManager = $this->get('fos_user.user_manager');
+                    $adversaire = $userManager->findUserBy(array('id' => $Idadversaire[0]->getIdlogin()));
+
+                    $rep = $em->getRepository('CoreBundle:Participe');
+                    $part = $rep->findOneBy(array('idlogin' => $adversaire, 'idpartie' => $partie));
+                    $part->setToken(true);
+                    $part->setPioche(true);
+                }
 
                 $em->flush();
 

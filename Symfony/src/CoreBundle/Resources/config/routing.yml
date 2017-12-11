@@ -39,7 +39,7 @@ main:
         id: \d+ 
         
 delete_main:
-    path:    /deleteMain/{id}/{val}/{user}/{partie}
+    path:    /deleteMain/{id}/{val}/{user}/{partie}/{def}
     defaults:
         _controller: CoreBundle:Main:delete
     requirements:
@@ -47,6 +47,7 @@ delete_main:
         val: \d+
         user: \d+
         partie: \d+
+        def: \d+
         
 defausse:
     path:    /defausse/{id}

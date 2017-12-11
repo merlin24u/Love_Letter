@@ -250,11 +250,12 @@ class PartieController extends Controller {
         $em = $this->getDoctrine()->getManager();
         $rep = $em->getRepository('CoreBundle:Participe');
 
-        $adversaire = $rep->adversaire($u, $partie);
+        $Idadversaire = $rep->adversaire($u, $partie);
 
-        if ($adversaire != null) {
+        if (!empty($Idadversaire)) {
+            $u2 = $userManager->findUserBy(array('id' => $Idadversaire[0]->getIdlogin()));
             $rep = $em->getRepository('CoreBundle:Defausse');
-            $defausse2 = $rep->findOneBy(array('idlogin' => $adversaire, 'idmanche' => $manche));
+            $defausse2 = $rep->findOneBy(array('idlogin' => $u2, 'idmanche' => $manche));
         } else
             $defausse2 = null;
 
