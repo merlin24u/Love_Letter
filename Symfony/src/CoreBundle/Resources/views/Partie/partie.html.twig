@@ -65,6 +65,17 @@
                 <strong>Info :</strong> Il n'y a pas assez de joueurs pour commencer la partie : Revenez plus tard !
             </div>
         {%endif%}
+        {% if gagnant is not null %}
+            {% if gagnant == true %}
+                <div class="alert alert-warning">
+                    <strong>Info :</strong> Félicitations, vous avez gagné cette manche !
+                </div>
+            {%else%}
+                <div class="alert alert-warning">
+                    <strong>Info :</strong> Vous avez perdu cette manche
+                </div>
+            {%endif%}
+        {%endif%} 
     </div>
 {% endblock %}
 

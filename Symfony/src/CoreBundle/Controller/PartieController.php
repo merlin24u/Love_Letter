@@ -91,6 +91,7 @@ class PartieController extends Controller {
             $p->setScore(0);
             $p->setToken(false);
             $p->setPioche(false);
+            $p->setElimine(false);
             $em->persist($p);
             $em->flush();
         }
@@ -98,6 +99,11 @@ class PartieController extends Controller {
         //token pour savoir si c'est au tour du joueur 
         $token = $p->getToken();
         $pioche = $p->getPioche();
+        $elimine = $p->getElimine();
+        if ($elimine)
+            $gagnant = false;
+        else
+            $gagnant = null;
 
         $listeParties = $rep->getPartie($partie);
 
@@ -214,7 +220,7 @@ class PartieController extends Controller {
             $em->flush();
 
             //si c'est le tour du joueur, il pioche
-            if ($token && $pioche) {
+            if ($token && $pioche && !$elimine) {
                 $rep = $em->getRepository('CoreBundle:DeckPossede');
                 $carteD = $rep->findBy(array('deck' => $deck));
 
@@ -241,14 +247,17 @@ class PartieController extends Controller {
         $Idadversaire = $rep->adversaire($u, $partie);
 
         if (!empty($Idadversaire)) {
+            $elimineAd = $Idadversaire[0]->getElimine();
+            if ($elimineAd)
+                $gagnant = true;
             $u2 = $userManager->findUserBy(array('id' => $Idadversaire[0]->getIdlogin()));
             $rep = $em->getRepository('CoreBundle:Defausse');
             $defausse2 = $rep->findOneBy(array('idlogin' => $u2, 'idmanche' => $manche));
         } else
             $defausse2 = null;
-
+        
         return $this->render('CoreBundle:Partie:partie.html.twig', array('num' => $partie->getIdpartie(), 'o' => $ouv, 'id' => $u, 'deck' => $deck, 'hand' => $main,
-                    'def' => $defausse, 'def2' => $defausse2, 'token' => $token));
+                    'def' => $defausse, 'def2' => $defausse2, 'token' => $token, 'gagnant' => $gagnant));
     }
 
     /**
@@ -269,14 +278,15 @@ class PartieController extends Controller {
         $p = new Participe();
         $p->setIdpartie($partie);
         $p->setIdlogin($u);
-        $p->setScore(-1);
+        $p->setScore(0);
+        $p->setElimine(false);
         $p->setToken(false);
 
         $em->persist($partie);
         $em->persist($p);
         $em->flush();
 
-        return $this->render('CoreBundle:Partie:partie.html.twig', array('num' => $partie->getIdpartie(), 'o' => true, 'id' => $u));
+        return $this->render('CoreBundle:Partie:partie.html.twig', array('num' => $partie->getIdpartie(), 'o' => true, 'id' => $u, 'gagnant' => null));
     }
 
     /**

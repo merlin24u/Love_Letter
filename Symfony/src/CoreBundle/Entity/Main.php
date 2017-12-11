@@ -44,6 +44,16 @@ class Main {
     private $idmanche;
 
     /**
+     * @var \Carte
+     * 
+     * @ORM\ManyToOne(targetEntity="Carte", cascade={"persist"})
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="carteJouee", referencedColumnName="idCarte")
+     * })
+     */
+    private $cartejouee;
+
+    /**
      * Set idmain
      *
      * @param integer $idmain

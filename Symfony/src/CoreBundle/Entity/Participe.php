@@ -57,6 +57,14 @@ class Participe {
      */
     private $pioche;
 
+    /**
+     *
+     * @var boolean
+     * 
+     * @ORM\Column(name="éliminé", type="boolean", nullable=true)
+     */
+    private $elimine;
+
     public function getIdpartie() {
         return $this->idpartie;
     }
@@ -117,6 +125,16 @@ class Participe {
 
     public function getPioche() {
         return $this->pioche;
+    }
+
+    public function setElimine($el) {
+        $this->elimine = $el;
+
+        return $this;
+    }
+
+    public function getElimine() {
+        return $this->elimine;
     }
 
 }

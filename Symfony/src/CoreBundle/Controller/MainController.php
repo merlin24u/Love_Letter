@@ -58,6 +58,30 @@ class MainController extends Controller {
             $rep = $em->getRepository('CoreBundle:Main');
 
             $main = $rep->find($id);
+            $main->setCartejouee($val);
+
+            //applique effet de la carte jouee
+            switch ($val->getValeur()) {
+                case 1:
+                    break;
+                case 2:
+                    break;
+                case 3:
+                    break;
+                case 4:
+                    break;
+                case 5:
+                    break;
+                case 6:
+                    break;
+                case 7:
+                    break;
+                case 8:
+                    $rep = $em->getRepository('CoreBundle:Participe');
+                    $part = $rep->findOneBy(array('idlogin' => $user, 'idpartie' => $partie));
+                    $part->setElimine(true);
+                    break;
+            }
 
             if ($main != null) {
                 $rep = $em->getRepository('CoreBundle:MainPossede');
