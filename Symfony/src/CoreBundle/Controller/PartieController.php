@@ -11,7 +11,6 @@ use CoreBundle\Entity\DefaussePossede;
 use CoreBundle\Entity\Main;
 use CoreBundle\Entity\MainPossede;
 use CoreBundle\Entity\Manche;
-use CoreBundle\Entity\Tour;
 use CoreBundle\Entity\Joueur;
 use CoreBundle\Entity\Carte;
 use CoreBundle\Entity\Participe;
@@ -127,17 +126,6 @@ class PartieController extends Controller {
                 $manche = $manche[sizeof($manche) - 1];
             }
 
-            $rep = $em->getRepository('CoreBundle:Tour');
-            $tour = $rep->findBy(array('idmanche' => $manche));
-
-            if (empty($tour)) {
-                $tour = new Tour();
-                $tour->setIdmanche($manche);
-                $em->persist($tour);
-            } else {
-                $tour = $tour[sizeof($tour) - 1];
-            }
-
             $em->flush();
 
             $rep = $em->getRepository('CoreBundle:Deck');
@@ -203,13 +191,13 @@ class PartieController extends Controller {
             $em->flush();
 
             $rep = $em->getRepository('CoreBundle:Main');
-            $main = $rep->findOneBy(array('idlogin' => $u, 'idtour' => $tour));
+            $main = $rep->findOneBy(array('idlogin' => $u, 'idmanche' => $manche));
 
             if ($main == NULL) {
                 $main = new Main();
                 $main->setCartejouee(NULL);
                 $main->setIdlogin($u);
-                $main->setIdtour($tour);
+                $main->setIdmanche($manche);
                 $em->persist($main);
 
                 $rep = $em->getRepository('CoreBundle:DeckPossede');

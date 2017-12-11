@@ -33,16 +33,16 @@ class Main {
     private $idlogin;
 
     /**
-     * @var \Tour
+     * @var \Manche
      *
      * @ORM\GeneratedValue(strategy="NONE")
-     * @ORM\ManyToOne(targetEntity="Tour", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="Manche", cascade={"persist"})
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="idTour", referencedColumnName="idTour")
+     *   @ORM\JoinColumn(name="idManche", referencedColumnName="idManche")
      * })
      */
-    private $idtour;
-    
+    private $idmanche;
+
     /**
      * Set idmain
      *
@@ -110,14 +110,14 @@ class Main {
     }
 
     /**
-     * Set idtour
+     * Set idmanche
      *
-     * @param \CoreBundle\Entity\Tour $idtour
+     * @param \CoreBundle\Entity\Manche $manche
      *
      * @return Main
      */
-    public function setIdtour(\CoreBundle\Entity\Tour $idtour) {
-        $this->idtour = $idtour;
+    public function setIdmanche($manche) {
+        $this->idmanche = $manche;
 
         return $this;
     }
@@ -125,10 +125,10 @@ class Main {
     /**
      * Get idtour
      *
-     * @return \CoreBundle\Entity\Tour
+     * @return \CoreBundle\Entity\Manche
      */
-    public function getIdtour() {
-        return $this->idtour;
+    public function getIdmanche() {
+        return $this->idmanche;
     }
 
 }
