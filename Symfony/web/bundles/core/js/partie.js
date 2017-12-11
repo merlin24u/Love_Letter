@@ -53,7 +53,6 @@ $(document).ready(function () {
             var elem, elem2;
             $('#myDefausse').empty();
             $.each(resp['Cartes'], function (i, val) {
-                console.log(resp);
                 elem = document.createElement("li");
                 elem2 = document.createElement("div");
                 elem2.className = "card rank-" + val;

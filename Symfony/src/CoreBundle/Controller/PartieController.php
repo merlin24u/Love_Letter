@@ -16,6 +16,7 @@ use CoreBundle\Entity\Carte;
 use CoreBundle\Entity\Participe;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Symfony\Component\HttpFoundation\Request;
 
 class PartieController extends Controller {
 
@@ -110,6 +111,10 @@ class PartieController extends Controller {
             $gagnant = false;
         else
             $gagnant = null;
+        $deck = null;
+        $main = null;
+        $defausse = null;
+        $defausse2 = null;
 
         $listeParties = $rep->getPartie($partie);
 
@@ -257,10 +262,12 @@ class PartieController extends Controller {
                         if ($somme >= $defAd->getValeur()) {
                             //donne un point au joeur courant
                             $p->setScore($p->getScore() + 1);
+                            $gagnant = true;
                         } else {
                             //donne un point à son adversaire
                             $partAd = $rep->findOneBy(array('idlogin' => $u2, 'idmanche' => $manche));
                             $partAd->setScore($partAd->getScore() + 1);
+                            $gagnant = false;
                         }
 
                         $manche->setFini(true);
@@ -285,9 +292,21 @@ class PartieController extends Controller {
         //récupère defausse de l'adversaire
         if (!empty($Idadversaire)) {
             $elimineAd = $Idadversaire[0]->getElimine();
-            if ($elimineAd)
+            if ($elimineAd) {
                 $gagnant = true;
-            $u2 = $userManager->findUserBy(array('id' => $Idadversaire[0]->getIdlogin()));
+                $p->setScore($p->getScore() + 1);
+                $Idadversaire[0]->setElimine(false);
+
+                //nouvelle manche
+                $rep = $em->getRepository('CoreBundle:Manche');
+                $manche2 = new Manche();
+                $manche2->setFini(false);
+                $manche2->setIdpartie($partie);
+                $p->setPioche(false);
+                $em->persist($manche2);
+                $em->flush();
+            }
+
             $rep = $em->getRepository('CoreBundle:Defausse');
             $defausse2 = $rep->findOneBy(array('idlogin' => $u2, 'idmanche' => $manche));
         } else
@@ -300,30 +319,36 @@ class PartieController extends Controller {
     /**
      * @Security("has_role('ROLE_USER')")
      */
-    public function addAction($nb) {
+    public function addAction($nb, Request $request) {
 
-        $em = $this->getDoctrine()->getManager();
-        $partie = new Partie();
-        $partie->setNbjoueurs($nb);
-        $partie->setGagnant(null);
-        $partie->setOuverte(true);
+        if ($nb == 2) {
 
-        $user = $this->get('security.token_storage')->getToken()->getUser();
-        $userManager = $this->get('fos_user.user_manager');
-        $u = $userManager->findUserBy(array('username' => $user->getUsername()));
+            $em = $this->getDoctrine()->getManager();
+            $partie = new Partie();
+            $partie->setNbjoueurs($nb);
+            $partie->setGagnant(null);
+            $partie->setOuverte(true);
 
-        $p = new Participe();
-        $p->setIdpartie($partie);
-        $p->setIdlogin($u);
-        $p->setScore(0);
-        $p->setElimine(false);
-        $p->setToken(false);
+            $user = $this->get('security.token_storage')->getToken()->getUser();
+            $userManager = $this->get('fos_user.user_manager');
+            $u = $userManager->findUserBy(array('username' => $user->getUsername()));
 
-        $em->persist($partie);
-        $em->persist($p);
-        $em->flush();
+            $p = new Participe();
+            $p->setIdpartie($partie);
+            $p->setIdlogin($u);
+            $p->setScore(0);
+            $p->setElimine(false);
+            $p->setToken(false);
 
-        return $this->render('CoreBundle:Partie:partie.html.twig', array('num' => $partie->getIdpartie(), 'o' => true, 'id' => $u, 'gagnant' => null));
+            $em->persist($partie);
+            $em->persist($p);
+            $em->flush();
+
+            $session = $request->getSession();
+            $session->getFlashBag()->add('info', 'Partie bien crée');
+        }
+        
+        return $this->redirectToRoute('accueil');
     }
 
     /**

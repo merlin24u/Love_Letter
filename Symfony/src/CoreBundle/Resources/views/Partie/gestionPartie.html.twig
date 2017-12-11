@@ -19,6 +19,12 @@
 
 {% block body %}
     <div class="container-fluid">
+        {% for message in app.session.flashbag.get('info') %}
+            <div class="alert alert-success alert-dismissable fade in">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                <strong>Success!</strong> {{ message }}, allez dans votre espace pour y accéder
+            </div>
+        {% endfor %}
         <h3>Rejoindre une Partie</h3>
         <ul>
             {% for partie in tab %}

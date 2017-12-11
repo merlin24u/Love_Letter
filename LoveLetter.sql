@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  localhost
--- Généré le :  Ven 01 Décembre 2017 à 15:52
+-- Généré le :  Lun 11 Décembre 2017 à 16:08
 -- Version du serveur :  10.1.19-MariaDB
 -- Version de PHP :  5.5.38
 
@@ -30,9 +30,22 @@ CREATE TABLE `Carte` (
   `idCarte` int(11) NOT NULL,
   `nom` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
   `valeur` int(11) DEFAULT NULL,
-  `effet` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `img` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL
+  `effet` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Contenu de la table `Carte`
+--
+
+INSERT INTO `Carte` (`idCarte`, `nom`, `valeur`, `effet`) VALUES
+(1, 'Guard', 1, 'Name a non Guard card and choose another player. If that player has that card, he or she is out of the round'),
+(2, 'Priest', 2, 'Look at another player''s hand'),
+(3, 'Baron', 3, 'You and another player secretly compare hands. The player with the lower value is out of the round'),
+(4, 'Handmaid', 4, 'Until your next turn, ignore all effects from player''s cards'),
+(5, 'Prince', 5, 'Choose any player including yourself to discard his or her hand and draw a new card'),
+(6, 'King', 6, 'Trade hands with another player of your choice'),
+(7, 'Countess', 7, 'If you have this card and the King or Prince in your hand, you must discard this card'),
+(8, 'Princess', 8, 'If you discard this card, you are out of the round');
 
 -- --------------------------------------------------------
 
@@ -66,6 +79,7 @@ CREATE TABLE `DeckPossede` (
 
 CREATE TABLE `Defausse` (
   `idDefausse` int(11) NOT NULL,
+  `valeur` int(11) DEFAULT NULL,
   `idLogin` int(11) DEFAULT NULL,
   `idManche` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -77,8 +91,9 @@ CREATE TABLE `Defausse` (
 --
 
 CREATE TABLE `DefaussePossede` (
-  `defausse` int(11) NOT NULL,
-  `carte` int(11) NOT NULL
+  `id` int(11) NOT NULL,
+  `defausse` int(11) DEFAULT NULL,
+  `carte` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
@@ -102,14 +117,6 @@ CREATE TABLE `Joueur` (
   `roles` longtext COLLATE utf8_unicode_ci NOT NULL COMMENT '(DC2Type:array)'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
---
--- Contenu de la table `Joueur`
---
-
-INSERT INTO `Joueur` (`id`, `username`, `username_canonical`, `email`, `email_canonical`, `enabled`, `salt`, `password`, `last_login`, `confirmation_token`, `password_requested_at`, `roles`) VALUES
-(1, 'stirpoiler', 'stirpoiler', 'test.test@gmail.com', 'test.test@gmail.com', 1, '7LnUe0lJczpErW.wW4LQXsUq.vavYyUIkbsq8.pQEHY', 'GiLSmJ3AH/lQw0z7iQIcL3Z6+G8JMIYpjaCRPdYLVBV6pLN9/6m0BnrqZkNDffNCnlxY8n3SyG99C5JjDf8LDg==', '2017-12-01 15:21:29', NULL, NULL, 'a:1:{i:0;s:9:"ROLE_USER";}'),
-(2, 'test', 'test', 'test.test2@gmail.com', 'test.test2@gmail.com', 1, 'ttbSNrjC5IpUl7EDAf0PM21PJSWe4rDyudu/rkTeDls', 'wWxVYtgdxwbcvqJ781oufBZinv17x+Dov99jX3KgRbtDfdy82VL4tVvLF1bGxTlgRI1XvcFFKfgJvwou8EekiA==', '2017-12-01 15:17:12', NULL, NULL, 'a:1:{i:0;s:9:"ROLE_USER";}');
-
 -- --------------------------------------------------------
 
 --
@@ -119,7 +126,8 @@ INSERT INTO `Joueur` (`id`, `username`, `username_canonical`, `email`, `email_ca
 CREATE TABLE `Main` (
   `idMain` int(11) NOT NULL,
   `idLogin` int(11) DEFAULT NULL,
-  `idTour` int(11) DEFAULT NULL
+  `idManche` int(11) DEFAULT NULL,
+  `carteJouee` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
@@ -129,8 +137,9 @@ CREATE TABLE `Main` (
 --
 
 CREATE TABLE `MainPossede` (
-  `main` int(11) NOT NULL,
-  `carte` int(11) NOT NULL
+  `id` int(11) NOT NULL,
+  `main` int(11) DEFAULT NULL,
+  `carte` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
@@ -141,7 +150,7 @@ CREATE TABLE `MainPossede` (
 
 CREATE TABLE `Manche` (
   `idManche` int(11) NOT NULL,
-  `token` tinyint(1) DEFAULT NULL,
+  `fini` tinyint(1) DEFAULT NULL,
   `idPartie` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -154,19 +163,11 @@ CREATE TABLE `Manche` (
 CREATE TABLE `Participe` (
   `score` int(11) DEFAULT NULL,
   `token` tinyint(1) DEFAULT NULL,
+  `pioche` tinyint(1) DEFAULT NULL,
+  `éliminé` tinyint(1) DEFAULT NULL,
   `idPartie` int(11) NOT NULL,
   `idLogin` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- Contenu de la table `Participe`
---
-
-INSERT INTO `Participe` (`score`, `token`, `idPartie`, `idLogin`) VALUES
-(-1, 0, 4, 1),
-(-1, 0, 4, 2),
-(-1, 0, 5, 1),
-(-1, 0, 6, 1);
 
 -- --------------------------------------------------------
 
@@ -179,26 +180,6 @@ CREATE TABLE `Partie` (
   `idPartie` int(11) NOT NULL,
   `nbJoueurs` int(11) DEFAULT NULL,
   `ouverte` tinyint(1) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- Contenu de la table `Partie`
---
-
-INSERT INTO `Partie` (`gagnant`, `idPartie`, `nbJoueurs`, `ouverte`) VALUES
-(NULL, 4, 2, 0),
-(NULL, 5, 2, 1),
-(NULL, 6, 2, 1);
-
--- --------------------------------------------------------
-
---
--- Structure de la table `Tour`
---
-
-CREATE TABLE `Tour` (
-  `idTour` int(11) NOT NULL,
-  `idManche` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
@@ -216,7 +197,7 @@ ALTER TABLE `Carte`
 --
 ALTER TABLE `Deck`
   ADD PRIMARY KEY (`idDeck`),
-  ADD UNIQUE KEY `UNIQ_EF9E9909BDCC880D` (`idLogin`),
+  ADD KEY `IDX_EF9E9909BDCC880D` (`idLogin`),
   ADD KEY `IDX_EF9E9909C37FCA71` (`idManche`);
 
 --
@@ -224,22 +205,22 @@ ALTER TABLE `Deck`
 --
 ALTER TABLE `DeckPossede`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `UNIQ_BD6DE6D34FAC3637` (`deck`),
-  ADD UNIQUE KEY `UNIQ_BD6DE6D3BAD4FFFD` (`carte`);
+  ADD KEY `IDX_BD6DE6D34FAC3637` (`deck`),
+  ADD KEY `IDX_BD6DE6D3BAD4FFFD` (`carte`);
 
 --
 -- Index pour la table `Defausse`
 --
 ALTER TABLE `Defausse`
   ADD PRIMARY KEY (`idDefausse`),
-  ADD UNIQUE KEY `UNIQ_5818FBC3BDCC880D` (`idLogin`),
+  ADD KEY `IDX_5818FBC3BDCC880D` (`idLogin`),
   ADD KEY `IDX_5818FBC3C37FCA71` (`idManche`);
 
 --
 -- Index pour la table `DefaussePossede`
 --
 ALTER TABLE `DefaussePossede`
-  ADD PRIMARY KEY (`defausse`,`carte`),
+  ADD PRIMARY KEY (`id`),
   ADD KEY `IDX_2E3FBB56A16E9995` (`defausse`),
   ADD KEY `IDX_2E3FBB56BAD4FFFD` (`carte`);
 
@@ -257,14 +238,15 @@ ALTER TABLE `Joueur`
 --
 ALTER TABLE `Main`
   ADD PRIMARY KEY (`idMain`),
-  ADD UNIQUE KEY `UNIQ_1F1A625ABDCC880D` (`idLogin`),
-  ADD UNIQUE KEY `UNIQ_1F1A625A192CA7F7` (`idTour`);
+  ADD KEY `IDX_1F1A625ABDCC880D` (`idLogin`),
+  ADD KEY `IDX_1F1A625AC37FCA71` (`idManche`),
+  ADD KEY `IDX_1F1A625A3A47B9ED` (`carteJouee`);
 
 --
 -- Index pour la table `MainPossede`
 --
 ALTER TABLE `MainPossede`
-  ADD PRIMARY KEY (`main`,`carte`),
+  ADD PRIMARY KEY (`id`),
   ADD KEY `IDX_1205FCD6BF28CD64` (`main`),
   ADD KEY `IDX_1205FCD6BAD4FFFD` (`carte`);
 
@@ -291,13 +273,6 @@ ALTER TABLE `Partie`
   ADD KEY `IDX_2371A0B53D089C` (`gagnant`);
 
 --
--- Index pour la table `Tour`
---
-ALTER TABLE `Tour`
-  ADD PRIMARY KEY (`idTour`),
-  ADD KEY `IDX_CAE35657C37FCA71` (`idManche`);
-
---
 -- AUTO_INCREMENT pour les tables exportées
 --
 
@@ -317,15 +292,25 @@ ALTER TABLE `DeckPossede`
 ALTER TABLE `Defausse`
   MODIFY `idDefausse` int(11) NOT NULL AUTO_INCREMENT;
 --
+-- AUTO_INCREMENT pour la table `DefaussePossede`
+--
+ALTER TABLE `DefaussePossede`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
 -- AUTO_INCREMENT pour la table `Joueur`
 --
 ALTER TABLE `Joueur`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT pour la table `Main`
 --
 ALTER TABLE `Main`
   MODIFY `idMain` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT pour la table `MainPossede`
+--
+ALTER TABLE `MainPossede`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT pour la table `Manche`
 --
@@ -335,12 +320,7 @@ ALTER TABLE `Manche`
 -- AUTO_INCREMENT pour la table `Partie`
 --
 ALTER TABLE `Partie`
-  MODIFY `idPartie` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
---
--- AUTO_INCREMENT pour la table `Tour`
---
-ALTER TABLE `Tour`
-  MODIFY `idTour` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idPartie` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- Contraintes pour les tables exportées
 --
@@ -377,8 +357,9 @@ ALTER TABLE `DefaussePossede`
 -- Contraintes pour la table `Main`
 --
 ALTER TABLE `Main`
-  ADD CONSTRAINT `FK_1F1A625A192CA7F7` FOREIGN KEY (`idTour`) REFERENCES `Tour` (`idTour`),
-  ADD CONSTRAINT `FK_1F1A625ABDCC880D` FOREIGN KEY (`idLogin`) REFERENCES `Joueur` (`id`);
+  ADD CONSTRAINT `FK_1F1A625A3A47B9ED` FOREIGN KEY (`carteJouee`) REFERENCES `Carte` (`idCarte`),
+  ADD CONSTRAINT `FK_1F1A625ABDCC880D` FOREIGN KEY (`idLogin`) REFERENCES `Joueur` (`id`),
+  ADD CONSTRAINT `FK_1F1A625AC37FCA71` FOREIGN KEY (`idManche`) REFERENCES `Manche` (`idManche`);
 
 --
 -- Contraintes pour la table `MainPossede`
@@ -405,12 +386,6 @@ ALTER TABLE `Participe`
 --
 ALTER TABLE `Partie`
   ADD CONSTRAINT `FK_2371A0B53D089C` FOREIGN KEY (`gagnant`) REFERENCES `Joueur` (`id`);
-
---
--- Contraintes pour la table `Tour`
---
-ALTER TABLE `Tour`
-  ADD CONSTRAINT `FK_CAE35657C37FCA71` FOREIGN KEY (`idManche`) REFERENCES `Manche` (`idManche`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
