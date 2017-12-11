@@ -42,6 +42,13 @@ class Defausse {
     private $idmanche;
 
     /**
+     * @var integer
+     * 
+     * @ORM\Column(name="valeur", type="integer", nullable=true)
+     */
+    private $valeur;
+
+    /**
      * Get iddefausse
      *
      * @return integer
@@ -92,6 +99,16 @@ class Defausse {
      */
     public function getIdmanche() {
         return $this->idmanche;
+    }
+
+    public function setValeur($v) {
+        $this->valeur = $v;
+
+        return $this;
+    }
+
+    public function getValeur() {
+        return $this->valeur;
     }
 
 }
