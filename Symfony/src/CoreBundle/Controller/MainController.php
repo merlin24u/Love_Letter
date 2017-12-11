@@ -57,6 +57,7 @@ class MainController extends Controller {
             $em = $this->getDoctrine()->getManager();
             $rep = $em->getRepository('CoreBundle:Main');
 
+            //stocke la carte jouée
             $main = $rep->find($id);
             $main->setCartejouee($val);
 
